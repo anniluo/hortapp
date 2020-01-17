@@ -1,14 +1,13 @@
 import React from 'react';
-import { Marker, Popup } from 'react-leaflet';
+import { Marker } from 'react-leaflet';
+import NatureResourcePopup from '../natureResourcePopup/natureResourcePopup';
 import mockMarkers from '../../utils/mockNatureResourceMarker';
 
 const NatureResourceMarkers = () => {
   const markers = mockMarkers.map(mockMarker => {
     return (
       <Marker key={mockMarker.id} position={[mockMarker.location.lat, mockMarker.location.long]}>
-        <Popup>
-          A pretty CSS3 popup. <br /> Easily customizable.
-        </Popup>
+        <NatureResourcePopup mockMarker={mockMarker} />
       </Marker>
     );
   });
