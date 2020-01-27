@@ -1,33 +1,27 @@
 const mockNatureResources = [
   {
     id: '1',
-    natureRespurceName: '',
-    natureResourceCategory: '',
-    natureResourceImgSrc: ''
+    natureRespurceName: 'Voikukka',
+    natureResourceCategory: 'Kasvit',
+    natureResourceImgSrc: 'C:UsersanniHortapphortapp-frontsrcassets\farming-and-gardening.svg'
   },
   {
     id: '2',
-    natureRespurceName: '',
-    natureResourceCategory: '',
-    natureResourceImgSrc: ''
+    natureRespurceName: 'Puolukka',
+    natureResourceCategory: 'Marjat',
+    natureResourceImgSrc: 'C:UsersanniHortapphortapp-frontsrcassets\fruits-and-vegetables.svg'
   },
   {
     id: '3',
-    natureRespurceName: '',
-    natureResourceCategory: '',
-    natureResourceImgSrc: ''
+    natureRespurceName: 'Nokkonen',
+    natureResourceCategory: 'Kasvit',
+    natureResourceImgSrc: 'C:UsersanniHortapphortapp-frontsrcassets\farming-and-gardening.svg'
   },
   {
     id: '4',
-    natureRespurceName: '',
-    natureResourceCategory: '',
-    natureResourceImgSrc: ''
-  },
-  {
-    id: '5',
-    natureRespurceName: '',
-    natureResourceCategory: '',
-    natureResourceImgSrc: ''
+    natureRespurceName: 'Mustikka',
+    natureResourceCategory: 'Marjat',
+    natureResourceImgSrc: 'C:UsersanniHortapphortapp-frontsrcassets\fruits-and-vegetables.svg'
   }
 ];
 
