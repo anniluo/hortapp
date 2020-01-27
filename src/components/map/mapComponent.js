@@ -1,6 +1,5 @@
 import React from 'react';
 import { Map, TileLayer } from 'react-leaflet';
-import NatureResourceMarkers from '../natureResourceMarker/natureResourceMarker';
 import mockMarkers from '../../utils/mockNatureResourceMarker';
 import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
 
