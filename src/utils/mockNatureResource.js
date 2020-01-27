@@ -1,7 +1,7 @@
 const mockNatureResources = [
   {
     id: '1',
-    natureRespurceName: '',
+    natureResourceName: '',
     natureResourceCategory: '',
     natureResourceImgSrc: ''
   },

@@ -1,24 +1,16 @@
 import React from 'react';
 import { Map, TileLayer } from 'react-leaflet';
-import NatureResourceMarkers from '../natureResourceMarker/natureResourceMarker';
 import mockMarkers from '../../utils/mockNatureResourceMarker';
 import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
-
-const UsersLocationButton = () => {
-  return <button>Get Location</button>;
-};
-
-const AddResourceMarkerButton = () => {
-  return <button>Add a new Resource Marker</button>;
-};
 
 const LeafletMap = () => {
   const mapPosition = [60.192059, 24.945831];
 
-  const renderNatureResourceMarkers = () =>
+  const renderNatureResourceMarkers = () => {
     mockMarkers.map(mockMarker => (
       <NatureResourceMarker mockMarker={mockMarker}></NatureResourceMarker>
     ));
+  };
 
   return (
     <>
