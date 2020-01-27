@@ -6,11 +6,10 @@ import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
 const LeafletMap = () => {
   const mapPosition = [60.192059, 24.945831];
 
-  const renderNatureResourceMarkers = () => {
+  const renderNatureResourceMarkers = () =>
     mockMarkers.map(mockMarker => (
       <NatureResourceMarker mockMarker={mockMarker}></NatureResourceMarker>
     ));
-  };
 
   return (
     <>
