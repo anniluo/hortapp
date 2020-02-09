@@ -15,14 +15,16 @@ const LeafletMap = () => {
   return (
     <>
       <Map center={mapPosition} zoom={13} zoomControl={false}>
-        <ZoomControl position="bottomright"></ZoomControl>
+        <ZoomControl position="topright"></ZoomControl>
         <LeafletControlButton
-          buttonPosition="topright"
-          buttonText="Add Resource"
+          buttonPosition="bottomright"
+          toolTipText="Get your Location"
+          buttonId="location-button"
         ></LeafletControlButton>
         <LeafletControlButton
-          buttonPosition="topright"
-          buttonText="Get Location"
+          buttonPosition="bottomright"
+          toolTipText="Add a New Nature Resource"
+          buttonId="add-button"
         ></LeafletControlButton>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
