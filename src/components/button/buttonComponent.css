@@ -1,0 +1,40 @@
+.round-button {
+  width: 54px;
+  height: 54px;
+  right: 5px;
+  bottom: 77px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  position: relative;
+}
+
+#add-button {
+  background-image: url(../../assets/add-white-18dp/2x/round_add_white_18dp.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#location-button {
+  background-image: url(../../assets/gps_fixed-white-18dp/2x/round_gps_fixed_white_18dp.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Tooltip positioned to the left*/
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  right: 105%;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
