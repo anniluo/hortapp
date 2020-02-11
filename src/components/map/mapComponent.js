@@ -17,9 +17,9 @@ const LeafletMap = () => {
       <Map center={mapPosition} zoom={13}>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <div className="marker-container">{renderNatureResourceMarkers()}</div>
+        <div className='marker-container'>{renderNatureResourceMarkers()}</div>
       </Map>
     </>
   );
