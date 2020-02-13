@@ -1,0 +1,26 @@
+.leaflet-popup-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+#nature-resource-name {
+  grid-column: 2 / 2;
+  grid-row: 1/2;
+  position: absolute;
+  left: 35%;
+  top: -4%;
+  display: flex;
+  padding: 1px;
+}
+
+.popup-info-container {
+  grid-column: 1 / 2;
+  grid-row: 2/2;
+}
+
+.resource-icon {
+  grid-column: 1 / 2;
+  grid-row: 1/2;
+  height: 60px;
+  width: 60px;
+}
