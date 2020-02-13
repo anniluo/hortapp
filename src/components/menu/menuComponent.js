@@ -2,7 +2,31 @@ import React, { useState } from 'react';
 import Control from 'react-leaflet-control';
 import './menuComponent.css';
 
-const HortappMenu = ({ isMenuOpen, onMenuButtonClick }) => {
+const HortappMenu = ({
+  isMenuOpen,
+  setIsMenuOpen,
+  onMenuButtonClick,
+  isLoginModalOpen,
+  setIsLoginModalOpen,
+  isSignupModalOpen,
+  setIsSignupModalOpen
+}) => {
+  const onLoginButtonClick = () => {
+    if (isMenuOpen) setIsMenuOpen(!isMenuOpen);
+    setIsLoginModalOpen(!isLoginModalOpen);
+    console.log('login modal state changed');
+  };
+
+  const onSignupButtonClick = () => {
+    if (isMenuOpen) setIsMenuOpen(!isMenuOpen);
+    setIsSignupModalOpen(!isSignupModalOpen);
+    console.log('signup modal state changed');
+  };
+
+  const onAboutButtonClick = () => {
+    console.log('open the about modal');
+  };
+
   const MapFilter = () => {
     return (
       <div className='filter-container'>
@@ -26,10 +50,10 @@ const HortappMenu = ({ isMenuOpen, onMenuButtonClick }) => {
         <button onClick={onMenuButtonClick} id='menu-open-button' className='menu-button'></button>
       </div>
       <div className='menu-contents'>
-        <button>Login</button>
-        <button>Sign up</button>
+        <button onClick={onLoginButtonClick}>Login</button>
+        <button onClick={onSignupButtonClick}>Sign up</button>
         <MapFilter></MapFilter>
-        <button>About</button>
+        <button onClick={onAboutButtonClick}>About</button>
       </div>
     </div>
   ) : (
