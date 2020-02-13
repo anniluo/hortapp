@@ -1,5 +1,4 @@
 .menu-container {
-  text-align: left;
   position: relative;
   width: 14em;
   height: 56em;
@@ -48,7 +47,6 @@
 
 .menu-header-container {
   display: grid;
-  align-content: center;
 }
 
 .menu-header-container p {
@@ -57,29 +55,35 @@
   margin-top: 0em;
 }
 
-.menu-contents a,
-p {
+.menu-contents button {
+  background-color: #ffffff;
+  border: none;
   color: #000000;
-  font-size: 1rem;
+  text-align: left;
   margin-top: 2em;
-  margin-left: 0.4em;
+  border-radius: 0%;
 }
 
-.menu-contents a:hover {
-  color: #265397;
+.menu-contents button:hover {
+  background-color: #738ada;
   font-weight: bold;
 }
 
 .filter-container {
   background-color: #738ada;
   position: relative;
+  text-align: left;
   top: 8%;
 }
 
 .filter-container p {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 2em;
+  margin-left: 1.3em;
   position: relative;
   top: -8%;
-  color: #e5e5e5;
+  color: #000000;
 }
 
 .filter-options-container {
@@ -90,7 +94,7 @@ p {
 }
 
 .filter-options-container label {
-  color: #e5e5e5;
+  color: #000000;
   font-weight: normal;
   font-size: 0.98rem;
 }

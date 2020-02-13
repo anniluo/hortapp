@@ -22,14 +22,14 @@ const HortappMenu = ({ isMenuOpen, onMenuButtonClick }) => {
   return isMenuOpen ? (
     <div className='menu-container'>
       <div className='menu-header-container'>
-        <p>Menu</p>
+        <h5>Menu</h5>
         <button onClick={onMenuButtonClick} id='menu-open-button' className='menu-button'></button>
       </div>
       <div className='menu-contents'>
-        <a href='#'>Login</a>
-        <a href='#'>Signup</a>
+        <button>Login</button>
+        <button>Sign up</button>
         <MapFilter></MapFilter>
-        <a href='#'>About</a>
+        <button>About</button>
       </div>
     </div>
   ) : (
