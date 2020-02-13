@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Control from 'react-leaflet-control';
 import './menuComponent.css';
 
-const HortappMenu = () => {
+const HortappMenu = ({ isMenuOpen, onMenuButtonClick }) => {
   const MapFilter = () => {
     return (
       <div className='filter-container'>
@@ -18,11 +19,11 @@ const HortappMenu = () => {
     );
   };
 
-  return (
+  return isMenuOpen ? (
     <div className='menu-container'>
       <div className='menu-header-container'>
         <p>Menu</p>
-        <button className='menu-button'></button>
+        <button onClick={onMenuButtonClick} id='menu-open-button' className='menu-button'></button>
       </div>
       <div className='menu-contents'>
         <a href='#'>Login</a>
@@ -31,6 +32,10 @@ const HortappMenu = () => {
         <a href='#'>About</a>
       </div>
     </div>
+  ) : (
+    <Control position='topleft'>
+      <button onClick={onMenuButtonClick} id='menu-closed-button' className='menu-button'></button>
+    </Control>
   );
 };
 

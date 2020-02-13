@@ -1,14 +1,16 @@
 .menu-container {
+  text-align: left;
   position: relative;
-  width: 30%;
-  height: 600px;
-  min-width: 100px;
+  width: 14em;
+  height: 56em;
   left: 0px;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  top: 2.46%;
+  top: 1.46%;
   bottom: 87.68%;
   border-radius: 0px 0px 15px 0px;
-  text-align: left;
+  z-index: 999;
+
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #ffffff;
 }
 
 .menu-button {
@@ -19,6 +21,7 @@
   color: #000000;
   border: none;
   position: absolute;
+  height: 3.8em;
   left: 100%;
   top: 0%;
   bottom: 89.68%;
@@ -38,7 +41,7 @@
   display: grid;
   left: 0%;
   right: 31.25%;
-  top: 2.46%;
+  top: 0.46%;
   bottom: 1.41%;
   border-radius: 0px 0px 15px 0px;
 }
@@ -51,14 +54,15 @@
 .menu-header-container p {
   position: relative;
   top: 24%;
-  margin-top: 0%;
+  margin-top: 0em;
 }
 
 .menu-contents a,
 p {
   color: #000000;
   font-size: 1rem;
-  margin-top: 24%;
+  margin-top: 2em;
+  margin-left: 0.4em;
 }
 
 .menu-contents a:hover {
@@ -89,4 +93,10 @@ p {
   color: #e5e5e5;
   font-weight: normal;
   font-size: 0.98rem;
+}
+
+#menu-closed-button {
+  position: relative;
+  top: 11%;
+  left: -24%;
 }
