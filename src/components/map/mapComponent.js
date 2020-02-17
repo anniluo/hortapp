@@ -1,42 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Map, TileLayer, ZoomControl } from 'react-leaflet';
 import mockMarkers from '../../utils/mockNatureResourceMarker';
 import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
 import LeafletControlButton from '../button/buttonComponent';
 import HortappMenu from '../menu/menuComponent';
-import Modal from '../modal/modalComponent';
 
 const LeafletMap = () => {
   /* states */
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false);
 
-  useEffect(() => {
-    console.log('component updated');
-  }, [isMenuOpen]);
-
+  /* event handlers */
   const onMenuButtonClick = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setMenuIsOpen(!menuIsOpen);
   };
 
   /* rendering */
-  const renderModal = () => {
-    return isLoginModalOpen || isSignupModalOpen ? (
-      <Modal
-        isLoginModalOpen={isLoginModalOpen}
-        isSignupModalOpen={isSignupModalOpen}
-        setIsLoginModalOpen={setIsLoginModalOpen}
-        setIsSignupModalOpen={setIsSignupModalOpen}
-      ></Modal>
-    ) : null;
-  };
-
   const renderNatureResourceMarkers = () =>
     mockMarkers.map(mockMarker => (
-      <NatureResourceMarker mockMarker={mockMarker}></NatureResourceMarker>
+      <NatureResourceMarker key={mockMarker.id} mockMarker={mockMarker}></NatureResourceMarker>
     ));
 
   return (
@@ -60,14 +43,9 @@ const LeafletMap = () => {
         <div className='marker-container'>{renderNatureResourceMarkers()}</div>
         <HortappMenu
           onMenuButtonClick={onMenuButtonClick}
-          isMenuOpen={isMenuOpen}
-          setIsMenuOpen={setIsMenuOpen}
-          isLoginModalOpen={isLoginModalOpen}
-          setIsLoginModalOpen={setIsLoginModalOpen}
-          isSignupModalOpen={isSignupModalOpen}
-          setIsSignupModalOpen={setIsSignupModalOpen}
+          menuIsOpen={menuIsOpen}
+          setMenuIsOpen={setMenuIsOpen}
         ></HortappMenu>
-        {renderModal()}
       </Map>
     </>
   );

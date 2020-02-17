@@ -1,33 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Control from 'react-leaflet-control';
 import './menuComponent.css';
+import ModalToggle from '../modal/modalToggleComponent';
+import Modal from '../modal/modalComponent';
 
-const HortappMenu = ({
-  isMenuOpen,
-  setIsMenuOpen,
-  onMenuButtonClick,
-  isLoginModalOpen,
-  setIsLoginModalOpen,
-  isSignupModalOpen,
-  setIsSignupModalOpen
-}) => {
-  const onLoginButtonClick = () => {
-    if (isMenuOpen) setIsMenuOpen(!isMenuOpen);
-    setIsLoginModalOpen(!isLoginModalOpen);
-    console.log('login modal state changed');
-  };
-
-  const onSignupButtonClick = () => {
-    if (isMenuOpen) setIsMenuOpen(!isMenuOpen);
-    setIsSignupModalOpen(!isSignupModalOpen);
-    console.log('signup modal state changed');
-  };
-
-  const onAboutButtonClick = () => {
-    console.log('open the about modal');
-  };
-
-  const MapFilter = () => {
+const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
+  /* rendering */
+  const renderMapFilter = () => {
     return (
       <div className='filter-container'>
         <p>Filter</p>
@@ -43,19 +22,97 @@ const HortappMenu = ({
     );
   };
 
-  return isMenuOpen ? (
-    <div className='menu-container'>
-      <div className='menu-header-container'>
-        <h5>Menu</h5>
-        <button onClick={onMenuButtonClick} id='menu-open-button' className='menu-button'></button>
+  return menuIsOpen ? (
+    <>
+      <div className='menu-container'>
+        <div className='menu-header-container'>
+          <h5>Menu</h5>
+          <button
+            onClick={onMenuButtonClick}
+            id='menu-open-button'
+            className='menu-button'
+          ></button>
+        </div>
+        <div className='menu-contents'>
+          <ModalToggle
+            toggle={showModal => <button onClick={showModal}>Login</button>}
+            content={hideModal => (
+              <Modal>
+                <button id='login-button' className='modal-top-buttons'>
+                  Login
+                </button>
+                <button id='signup-button' className='modal-top-buttons'>
+                  Sign Up
+                </button>
+                <button
+                  id='close-modal-button'
+                  className='modal-top-buttons'
+                  onClick={hideModal}
+                ></button>
+                <form id='login -form' className='modal-form'>
+                  <input className='modal-form-input' type='text' placeholder='username'></input>
+                  <input className='modal-form-input' type='text' placeholder='password'></input>
+                  <input
+                    onClick={hideModal}
+                    className='modal-form-input round-button'
+                    type='submit'
+                    value='Confirm'
+                  ></input>
+                </form>
+              </Modal>
+            )}
+          />
+          <ModalToggle
+            toggle={showModal => <button onClick={showModal}>Signup</button>}
+            content={hideModal => (
+              <Modal>
+                <button id='login-button' className='modal-top-buttons'>
+                  Login
+                </button>
+                <button id='signup-button' className='modal-top-buttons'>
+                  Sign Up
+                </button>
+                <button
+                  id='close-modal-button'
+                  className='modal-top-buttons'
+                  onClick={hideModal}
+                ></button>
+                <form id='singup-form' className='modal-form'>
+                  <input className='modal-form-input' type='email' placeholder='e-mail'></input>
+                  <input className='modal-form-input' type='text' placeholder='username'></input>
+                  <input className='modal-form-input' type='text' placeholder='password'></input>
+                  <input
+                    className='modal-form-input'
+                    type='text'
+                    placeholder='confirm password'
+                  ></input>
+                  <input
+                    onClick={hideModal}
+                    className='modal-form-input round-button'
+                    type='submit'
+                    value='Confirm'
+                  ></input>
+                </form>
+              </Modal>
+            )}
+          />
+          {renderMapFilter()}
+          <ModalToggle
+            toggle={showModal => <button onClick={showModal}>About</button>}
+            content={hideModal => (
+              <Modal>
+                <p>Here I'll write a small description of the app</p>
+                <button
+                  id='close-modal-button'
+                  className='modal-top-buttons'
+                  onClick={hideModal}
+                ></button>
+              </Modal>
+            )}
+          />
+        </div>
       </div>
-      <div className='menu-contents'>
-        <button onClick={onLoginButtonClick}>Login</button>
-        <button onClick={onSignupButtonClick}>Sign up</button>
-        <MapFilter></MapFilter>
-        <button onClick={onAboutButtonClick}>About</button>
-      </div>
-    </div>
+    </>
   ) : (
     <Control position='topleft'>
       <button onClick={onMenuButtonClick} id='menu-closed-button' className='menu-button'></button>

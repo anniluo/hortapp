@@ -6,7 +6,7 @@ const leafletControlButton = ({ buttonPosition, toolTipText, buttonId }) => {
   return (
     <Control position={buttonPosition}>
       <button className='map-button tooltip' id={buttonId}>
-        <span class='tooltiptext'> {toolTipText}</span>
+        <span className='tooltiptext'> {toolTipText}</span>
       </button>
     </Control>
   );
