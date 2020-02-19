@@ -5,7 +5,7 @@ import './buttonComponent.css';
 const leafletControlButton = ({ buttonPosition, toolTipText, buttonId }) => {
   return (
     <Control position={buttonPosition}>
-      <button className='map-button tooltip' id={buttonId}>
+      <button className='round-button tooltip' id={buttonId}>
         <span className='tooltiptext'> {toolTipText}</span>
       </button>
     </Control>

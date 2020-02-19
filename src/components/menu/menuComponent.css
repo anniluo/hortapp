@@ -7,21 +7,17 @@
   bottom: 87.68%;
   border-radius: 0px 0px 15px 0px;
   z-index: 999;
-
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: #ffffff;
 }
 
 .menu-button {
-  background-image: url(../../assets/menu_open-24px.svg);
-  background-repeat: no-repeat;
-  background-position: center;
   background-color: #ffffff;
   color: #000000;
   border: none;
-  position: absolute;
+  position: relative;
   height: 3.8em;
-  left: 100%;
+  left: -24%;
   top: 0%;
   bottom: 89.68%;
   border-radius: 0px 15px 15px 0px;
@@ -32,8 +28,24 @@
   background-image: url(../../assets/menu_open-24px.svg);
   background-repeat: no-repeat;
   background-position: center;
-  background-color: #738ada;
-  border-color: #738ada;
+  background-color: #334896;
+  border-color: #334896;
+}
+
+.menu-open-icon {
+  background-image: url(../../assets/menu_open-24px.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  left: 100%;
+  top: 0%;
+  bottom: 89.68%;
+}
+
+.menu-closed-icon {
+  background-image: url(../../assets/menu-24px.svg);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .menu-contents {
@@ -56,21 +68,16 @@
 }
 
 .menu-contents button {
-  background-color: #ffffff;
-  border: none;
-  color: #000000;
-  text-align: left;
   margin-top: 2em;
-  border-radius: 0%;
 }
 
 .menu-contents button:hover {
-  background-color: #738ada;
+  background-color: #334896;
   font-weight: bold;
 }
 
 .filter-container {
-  background-color: #738ada;
+  background-color: #334896;
   position: relative;
   text-align: left;
   top: 8%;
@@ -83,7 +90,7 @@
   margin-left: 1.3em;
   position: relative;
   top: -8%;
-  color: #000000;
+  color: #ffffff;
 }
 
 .filter-options-container {
@@ -94,13 +101,7 @@
 }
 
 .filter-options-container label {
-  color: #000000;
+  color: #ffffff;
   font-weight: normal;
   font-size: 0.98rem;
-}
-
-#menu-closed-button {
-  position: relative;
-  top: 11%;
-  left: -24%;
 }
