@@ -25,15 +25,12 @@
 }
 
 .menu-button:hover {
-  background-image: url(../../assets/menu_open-24px.svg);
-  background-repeat: no-repeat;
-  background-position: center;
   background-color: #334896;
   border-color: #334896;
 }
 
 .menu-open-icon {
-  background-image: url(../../assets/menu_open-24px.svg);
+  background-image: url(../../assets/menu_open-black-18dp/baseline_menu_open_black_18dp.png);
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;
@@ -42,8 +39,20 @@
   bottom: 89.68%;
 }
 
+.menu-open-icon:hover {
+  background-image: url(../../assets/menu-white-18dp/baseline_menu_white_18dp.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menu-closed-icon:hover {
+  background-image: url(../../assets/menu_open-white-18dp/baseline_menu_open_white_18dp.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .menu-closed-icon {
-  background-image: url(../../assets/menu-24px.svg);
+  background-image: url(../../assets/menu-black-18dp/baseline_menu_black_18dp.png);
   background-repeat: no-repeat;
   background-position: center;
 }
