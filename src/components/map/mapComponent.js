@@ -9,11 +9,31 @@ const LeafletMap = () => {
   /* states */
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   /* event handlers */
   const onMenuButtonClick = () => {
     setMenuIsOpen(!menuIsOpen);
+    console.log();
+  };
+
+  const onLocationButtonClick = () => {
+    getLocation();
+  };
+
+  const getLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        console.log(position);
+        setMapPosition([position.coords.latitude, position.coords.longitude]);
+      },
+      error => {
+        console.log(error.message);
+      }
+    );
+  };
+
+  const onAddResourceButtonClick = () => {
+    console.log('open the add new nature resource modal');
   };
 
   /* rendering */
@@ -24,17 +44,19 @@ const LeafletMap = () => {
 
   return (
     <>
-      <Map center={mapPosition} zoom={13} zoomControl={false}>
+      <Map id='hortapp-map' center={mapPosition} zoom={13} zoomControl={false}>
         <ZoomControl position='topright'></ZoomControl>
         <LeafletControlButton
           buttonPosition='bottomright'
           toolTipText='Get your Location'
           buttonId='location-button'
+          buttonOnClick={onLocationButtonClick}
         ></LeafletControlButton>
         <LeafletControlButton
           buttonPosition='bottomright'
           toolTipText='Add a New Nature Resource'
           buttonId='add-button'
+          buttonOnClick={onAddResourceButtonClick}
         ></LeafletControlButton>
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
