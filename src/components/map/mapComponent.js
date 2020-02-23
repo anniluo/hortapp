@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Map, TileLayer, ZoomControl } from 'react-leaflet';
+import React, { useState, useEffect } from 'react';
+import { Map, TileLayer, ZoomControl, Circle, Popup } from 'react-leaflet';
 import mockMarkers from '../../utils/mockNatureResourceMarker';
 import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
 import LeafletControlButton from '../button/buttonComponent';
@@ -9,6 +9,15 @@ const LeafletMap = () => {
   /* states */
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [circlePosition, setCirclePosition] = useState(null);
+
+  useEffect(
+    () => {
+      console.log('component re-rendered');
+    },
+    circlePosition,
+    mapPosition
+  );
 
   /* event handlers */
   const onMenuButtonClick = () => {
@@ -25,6 +34,7 @@ const LeafletMap = () => {
       position => {
         console.log(position);
         setMapPosition([position.coords.latitude, position.coords.longitude]);
+        setCirclePosition([position.coords.latitude, position.coords.longitude]);
       },
       error => {
         console.log(error.message);
@@ -34,6 +44,14 @@ const LeafletMap = () => {
 
   const onAddResourceButtonClick = () => {
     console.log('open the add new nature resource modal');
+  };
+
+  const renderLeafletCircle = () => {
+    return circlePosition == null ? null : (
+      <Circle center={mapPosition} radius={250} fillColor='blue'>
+        <Popup>You are here</Popup>
+      </Circle>
+    );
   };
 
   /* rendering */
@@ -68,6 +86,7 @@ const LeafletMap = () => {
           menuIsOpen={menuIsOpen}
           setMenuIsOpen={setMenuIsOpen}
         ></HortappMenu>
+        {renderLeafletCircle()}
       </Map>
     </>
   );
