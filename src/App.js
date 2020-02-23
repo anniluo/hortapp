@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
 import LeafletMap from './components/map/mapComponent';
-import AddResourceModal from './components/addResourceModal/addResourceModalComponent';
 
-function App() {
+const App = () => {
   return (
     <div className='App'>
-      <AddResourceModal></AddResourceModal>
+      <LeafletMap></LeafletMap>
     </div>
   );
-}
+};
 
 export default App;

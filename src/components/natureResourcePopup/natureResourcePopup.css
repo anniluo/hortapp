@@ -1,0 +1,47 @@
+.popup-container p {
+  margin: 8px 0;
+}
+
+.popup-header-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.resource-icon {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+#nature-resource-name {
+  grid-column: 2/2;
+  grid-row: 1/2;
+  text-align: right;
+}
+
+#date-user-info-text {
+  grid-row: 1;
+  grid-column: 2/2;
+  text-align: right;
+  margin: 4.8em 0;
+}
+
+.popup-info-container {
+  display: grid;
+  grid-template-rows: auto;
+  margin-top: 0.8em;
+}
+
+#address-text {
+  grid-column: 1/1;
+}
+
+#user-comment-text {
+  grid-column: 1/1;
+  padding: 1em;
+  background-color: lightsalmon;
+  border-radius: 2px;
+}
+
+#wikipedia-link {
+  grid-column: 1/1;
+}

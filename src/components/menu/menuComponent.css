@@ -1,0 +1,116 @@
+.menu-container {
+  position: relative;
+  width: 14em;
+  height: 56em;
+  left: 0px;
+  top: 1.46%;
+  bottom: 87.68%;
+  border-radius: 0px 0px 15px 0px;
+  z-index: 999;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #ffffff;
+}
+
+.menu-button {
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  position: relative;
+  height: 3.8em;
+  left: -24%;
+  top: 0%;
+  bottom: 89.68%;
+  border-radius: 0px 15px 15px 0px;
+  box-shadow: 4px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.menu-button:hover {
+  background-color: #334896;
+  border-color: #334896;
+}
+
+.menu-open-icon {
+  background-image: url(../../assets/menu_open-black-18dp/baseline_menu_open_black_18dp.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  left: 100%;
+  top: 0%;
+  bottom: 89.68%;
+}
+
+.menu-open-icon:hover {
+  background-image: url(../../assets/menu-white-18dp/baseline_menu_white_18dp.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menu-closed-icon:hover {
+  background-image: url(../../assets/menu_open-white-18dp/baseline_menu_open_white_18dp.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menu-closed-icon {
+  background-image: url(../../assets/menu-black-18dp/baseline_menu_black_18dp.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menu-contents {
+  display: grid;
+  left: 0%;
+  right: 31.25%;
+  top: 0.46%;
+  bottom: 1.41%;
+  border-radius: 0px 0px 15px 0px;
+}
+
+.menu-header-container {
+  display: grid;
+}
+
+.menu-header-container p {
+  position: relative;
+  top: 24%;
+  margin-top: 0em;
+}
+
+.menu-contents button {
+  margin-top: 2em;
+}
+
+.menu-contents button:hover {
+  background-color: #334896;
+  font-weight: bold;
+}
+
+.filter-container {
+  background-color: #334896;
+  position: relative;
+  text-align: left;
+  top: 8%;
+}
+
+.filter-container p {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 2em;
+  margin-left: 1.3em;
+  position: relative;
+  top: -8%;
+  color: #ffffff;
+}
+
+.filter-options-container {
+  position: relative;
+  display: grid;
+  top: -16%;
+  grid-template-columns: repeat(2, auto);
+}
+
+.filter-options-container label {
+  color: #ffffff;
+  font-weight: normal;
+  font-size: 0.98rem;
+}
