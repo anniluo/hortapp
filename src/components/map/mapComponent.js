@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Map, TileLayer, ZoomControl, Circle, Popup } from 'react-leaflet';
 import mockMarkers from '../../utils/mockNatureResourceMarker';
 import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
 import LeafletControlButton from '../button/buttonComponent';
 import HortappMenu from '../menu/menuComponent';
+import ModalToggle from '../modal/modalToggleComponent';
+import Modal from '../modal/modalComponent';
+import AddResourceModal from '../addResourceModal/addResourceModalComponent';
 
 const LeafletMap = () => {
   /* states */
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [circlePosition, setCirclePosition] = useState(null);
-
-  useEffect(
-    () => {
-      console.log('component re-rendered');
-    },
-    circlePosition,
-    mapPosition
-  );
 
   /* event handlers */
   const onMenuButtonClick = () => {
@@ -40,10 +35,6 @@ const LeafletMap = () => {
         console.log(error.message);
       }
     );
-  };
-
-  const onAddResourceButtonClick = () => {
-    console.log('open the add new nature resource modal');
   };
 
   /* rendering */
@@ -70,12 +61,21 @@ const LeafletMap = () => {
           buttonId='location-button'
           buttonOnClick={onLocationButtonClick}
         ></LeafletControlButton>
-        <LeafletControlButton
-          buttonPosition='bottomright'
-          toolTipText='Add a New Nature Resource'
-          buttonId='add-button'
-          buttonOnClick={onAddResourceButtonClick}
-        ></LeafletControlButton>
+        <ModalToggle
+          toggle={showModal => (
+            <LeafletControlButton
+              buttonPosition='bottomright'
+              toolTipText='Add a New Nature Resource'
+              buttonId='add-button'
+              buttonOnClick={showModal}
+            ></LeafletControlButton>
+          )}
+          content={hideModal => (
+            <Modal>
+              <AddResourceModal hideModalOnClick={hideModal}></AddResourceModal>
+            </Modal>
+          )}
+        />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

@@ -26,12 +26,12 @@ const DropDownmenu = () => {
   );
 };
 
-const AddResourceModal = () => {
+const AddResourceModal = ({ hideModalOnClick }) => {
   return (
-    <div className='resource-modal-container'>
+    <>
       <div className='resource-modal-header'>
         <h5>Add a new Resource</h5>
-        <button id='close-modal-button'></button>
+        <button id='close-modal-button' onClick={hideModalOnClick}></button>
       </div>
       <form className='resource-modal-form'>
         <input type='text' placeholder='location'></input>
@@ -41,8 +41,10 @@ const AddResourceModal = () => {
         </label>
         <textarea id='resource-comment' placeholder='write a comment...'></textarea>
       </form>
-      <button className='round-button'>Confirm</button>
-    </div>
+      <button className='round-button' onClick={hideModalOnClick}>
+        Confirm
+      </button>
+    </>
   );
 };
 
