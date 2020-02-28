@@ -1,32 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './addResourceModalComponent.css';
-
-const DropDownmenu = () => {
-  let chosenResource = 'Mustikka';
-  return (
-    <div className='dropdown-container'>
-      <button className='dropdown-button'>
-        <i class='fa fa-caret-down'></i>
-      </button>
-      <input
-        className='dropdown-input'
-        value={chosenResource}
-        type='text'
-        placeholder='resource'
-        disabled
-      />
-      <div className='dropdown-content'>
-        <a href='#'>Mustikka</a>
-        <a href='#'>Puolukka</a>
-        <a href='#'>Metsämansikka</a>
-        <a href='#'>Nokkonen</a>
-        <a href='#'>Voikukka</a>
-      </div>
-    </div>
-  );
-};
+import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
 
 const AddResourceModal = ({ hideModalOnClick }) => {
+  const [resources, setResources] = useState([
+    'Mustikka',
+    'Puolukka',
+    'Metsämansikka',
+    'Nokkonen',
+    'Voikukka'
+  ]);
+
   return (
     <>
       <div className='resource-modal-header'>
@@ -35,13 +19,13 @@ const AddResourceModal = ({ hideModalOnClick }) => {
       </div>
       <form className='resource-modal-form'>
         <input type='text' placeholder='location'></input>
-        <DropDownmenu></DropDownmenu>
-        <label for='resource-comment' hidden>
+        <Dropdownmenu resources={resources} />
+        <label htmlFor='resource-comment' hidden>
           Comment:
         </label>
         <textarea id='resource-comment' placeholder='write a comment...'></textarea>
       </form>
-      <button className='round-button' onClick={hideModalOnClick}>
+      <button className='a-button modal-form-submit' onClick={hideModalOnClick}>
         Confirm
       </button>
     </>
