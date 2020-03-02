@@ -1,29 +1,31 @@
-/* dropdown menu*/
 .dropdown-container {
   display: flex;
-  flex-wrap: wrap;
 }
 
 .dropdown-menu-button {
   background-color: #ffffff;
   border: 1px solid #dedede;
   color: #000000;
+  margin-top: 0.6em;
 }
 
 .dropdown-input {
-  width: 83%;
+  border-radius: 0%;
+  margin-top: 0.6em;
 }
 
 .dropdown-content {
-  position: relative;
-  top: -8px;
-  width: 100%;
+  position: absolute;
+  top: 205px;
+  width: 87.5%;
   display: flex;
   flex-wrap: wrap;
   text-align: left;
   border: 1px solid #dedede;
+  background-color: #ffffff;
 }
 
 .dropdown-content a {
   width: 100%;
+  cursor: pointer;
 }

@@ -7,31 +7,38 @@ const Dropdownmenu = ({ resources }) => {
 
   const showDropdownMenu = event => {
     event.preventDefault();
-    setDropdownMenuIsOpen(true);
+    setDropdownMenuIsOpen(!dropdownMenuIsOpen);
+  };
+
+  const handleResourceChange = resource => {
+    setChosenResource(resource);
+    setDropdownMenuIsOpen(false);
   };
 
   return (
-    <div className='dropdown-container'>
-      <button className='dropdown-menu-button square-button' onClick={showDropdownMenu}>
-        <i className='fa fa-caret-down'></i>
-      </button>
-      <input
-        className='dropdown-input'
-        value={chosenResource}
-        type='text'
-        placeholder='resource'
-        disabled
-      />
+    <>
+      <div className='dropdown-container'>
+        <button className='dropdown-menu-button square-button' onClick={showDropdownMenu}>
+          <i className='fa fa-caret-down'></i>
+        </button>
+        <input
+          className='dropdown-input'
+          value={chosenResource}
+          type='text'
+          placeholder='resource'
+          disabled
+        />
+      </div>
       {dropdownMenuIsOpen && (
         <div className='dropdown-content'>
           {resources.map(resource => (
-            <a key={resource} onClick={() => setChosenResource(resource)}>
+            <a key={resource} onClick={() => handleResourceChange(resource)}>
               {resource}
             </a>
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

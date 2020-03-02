@@ -1,7 +1,7 @@
 input,
 button,
 textarea {
-  margin-bottom: 0.6em;
+  margin-top: 0.6em;
 }
 
 .resource-modal-header {
@@ -20,6 +20,7 @@ textarea {
   top: 46px;
   background-color: #ffffff;
   border: none;
+  margin-top: 0em;
 }
 
 #close-modal-button:hover,
