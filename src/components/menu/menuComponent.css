@@ -13,7 +13,7 @@
 }
 
 .menu-button {
-  background-image: url(../../assets/menu_open-24px.svg);
+  background-image: url(../../assets/menu-black-18dp/baseline_menu_black_18dp.png);
   background-repeat: no-repeat;
   background-position: center;
   background-color: #ffffff;
@@ -29,7 +29,7 @@
 }
 
 .menu-button:hover {
-  background-image: url(../../assets/menu_open-24px.svg);
+  background-image: url(../../assets/menu_open-white-18dp/baseline_menu_open_white_18dp.png);
   background-repeat: no-repeat;
   background-position: center;
   background-color: #738ada;
