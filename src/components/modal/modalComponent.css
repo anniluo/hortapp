@@ -3,37 +3,20 @@
   top: 50%;
   left: 50%;
   width: 50%;
-  min-width: 400px;
+  min-width: 24em;
   transform: translate(-50%, -50%);
   padding: 2em;
   border-radius: 2em;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: #ffffff;
-  z-index: 999;
+  z-index: 1000;
 }
 
-.modal-buttons-container {
+.modal-header-container {
   width: 100%;
   display: grid;
-  grid-template-columns: 10% 30% 10%;
+  grid-template-columns: repeat(2, 1fr);
   grid-gap: 30px;
-}
-
-.modal-top-buttons {
-  background-color: #ffffff;
-  color: #000000;
-  font-weight: 300;
-  border: none;
-  text-align: left;
-}
-
-.modal-top-buttons:hover {
-  background-color: #ffffff;
-  color: #265397;
-  border: none;
-  text-decoration: underline;
-  font-size: 1.1rem;
-  font-weight: bold;
 }
 
 #login-button {
@@ -50,28 +33,18 @@
   top: 10px;
 }
 
-#close-modal-button {
-  background-image: url('../../assets/clear-black-18dp/2x/round_clear_black_18dp.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  position: fixed;
-  width: 24px;
-  height: 40px;
-  right: 20px;
-}
-
-#close-modal-button:hover {
-  background-color: #738ada;
-}
-
 .modal-form-input {
   margin-top: 1em;
 }
 
-.round-button {
-  width: 193px;
-  height: 44px;
-  background: #738ada;
-  border-color: #738ada;
-  border-radius: 10px;
+.modal-form-submit {
+  position: relative;
+  left: 24%;
+  margin-top: 2em;
+  width: 50%;
+  height: 2.8em;
+}
+
+.about-text-container {
+  margin: 2em;
 }
