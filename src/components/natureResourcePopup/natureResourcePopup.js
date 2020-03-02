@@ -1,6 +1,5 @@
 import React from 'react';
 import { Popup } from 'react-leaflet';
-import mockResources from '../../utils/mockNatureResource';
 import './natureResourcePopup.css';
 import fruitsAndVegetableIcon from '../../assets/fruits-and-vegetables.png';
 

@@ -1,0 +1,28 @@
+.resource-modal-header {
+  width: 100%;
+  text-align: start;
+}
+
+#close-modal-button {
+  background-image: url('../../assets/clear-black-18dp/2x/round_clear_black_18dp.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
+  width: 24px;
+  height: 40px;
+  right: 20px;
+  top: 46px;
+  background-color: #ffffff;
+  border: none;
+  margin-top: 0em;
+}
+
+#close-modal-button:hover,
+.dropdown-button:hover {
+  background-color: #334896;
+}
+
+.resource-modal-form {
+  width: 100%;
+  align-items: center;
+}
