@@ -4,16 +4,22 @@
   position: relative;
 }
 
-#add-button {
+#add-round-button {
   background-image: url(../../assets/add-white-18dp/2x/round_add_white_18dp.png);
   background-repeat: no-repeat;
   background-position: center;
 }
 
-#location-button {
+#location-round-button {
   background-image: url(../../assets/gps_fixed-white-18dp/2x/round_gps_fixed_white_18dp.png);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+#cancel-round-button {
+  background-image: url(../../assets/clear-white-18dp/2x/baseline_clear_white_18dp.png);
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .tooltip .tooltiptext {

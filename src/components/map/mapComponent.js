@@ -25,10 +25,6 @@ const LeafletMap = () => {
     console.log();
   };
 
-  const onLocationButtonClick = () => {
-    getLocation();
-  };
-
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       position => {
@@ -67,13 +63,13 @@ const LeafletMap = () => {
         <LeafletControlButton
           buttonPosition='bottomright'
           toolTipText='Get your Location'
-          buttonId='location-button'
-          buttonOnClick={onLocationButtonClick}
+          buttonId='location-round-button'
+          buttonOnClick={getLocation}
         ></LeafletControlButton>
         <LeafletControlButton
           buttonPosition='bottomright'
           toolTipText='Add a New Nature Resource'
-          buttonId='add-button'
+          buttonId='add-round-button'
           buttonOnClick={onAddResourceButtonClick}
         ></LeafletControlButton>
         <TileLayer

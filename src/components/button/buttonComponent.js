@@ -2,7 +2,7 @@ import React from 'react';
 import Control from 'react-leaflet-control';
 import './buttonComponent.css';
 
-const leafletControlButton = ({ buttonPosition, toolTipText, buttonId, buttonOnClick }) => {
+const LeafletControlButton = ({ buttonPosition, toolTipText, buttonId, buttonOnClick }) => {
   return (
     <Control position={buttonPosition}>
       <button onClick={buttonOnClick} className='round-button tooltip' id={buttonId}>
@@ -12,4 +12,4 @@ const leafletControlButton = ({ buttonPosition, toolTipText, buttonId, buttonOnC
   );
 };
 
-export default leafletControlButton;
+export default LeafletControlButton;
