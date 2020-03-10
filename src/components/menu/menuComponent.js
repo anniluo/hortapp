@@ -55,11 +55,7 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
           )}
         />
         <ModalToggle
-          toggle={showModal => (
-            <button className='full-button square-button no-border' onClick={showModal}>
-              Signup
-            </button>
-          )}
+          toggle={showModal => <p>am i even here</p>}
           content={hideModal => (
             <Modal>
               <div className='modal-header-container'>
