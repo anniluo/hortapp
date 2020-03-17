@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Map, TileLayer, ZoomControl, Circle, Popup } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, Popup, Marker } from 'react-leaflet';
 import './mapComponent.css';
 import LeafletControlButton from '../button/buttonComponent';
-import ModalToggle from '../modal/modalToggleComponent';
-import Modal from '../modal/modalComponent';
+import { getReverseGeocodeWithPosition } from '../../services/reverseGeocodingService';
 
 const LeafletMap = () => {
   /* states */
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
   const [chosenLocation, setChosenLocation] = useState([null, null]);
-  const [circlePosition, setCirclePosition] = useState(null);
+  //const [locationName, setLocationName] = useState('');
 
   useEffect(() => {
     console.log('component re-rendered');
+    confirmationPopupToggle();
   }, chosenLocation);
 
   const getDeviceLocation = () => {
@@ -20,7 +20,7 @@ const LeafletMap = () => {
       position => {
         console.log(position);
         setMapPosition([position.coords.latitude, position.coords.longitude]);
-        setCirclePosition([position.coords.latitude, position.coords.longitude]);
+        setChosenLocation([position.coords.latitude, position.coords.longitude]);
       },
       error => {
         console.log(error.message);
@@ -28,45 +28,64 @@ const LeafletMap = () => {
     );
   };
 
-  const handleLocationConfirmation = () => {
-    console.log('location confirmed');
+  const confirmationPopupToggle = () => {
+    const chosenLocationMarker = document.getElementsByClassName('leaflet-marker-icon')[0];
+
+    if (chosenLocationMarker === undefined) {
+      console.log('no location chosen');
+    } else {
+      if (document.getElementsByClassName('leaflet-popup-content-wrapper').length === 0) {
+        chosenLocationMarker.click();
+      } else {
+        console.log('popup is already open');
+      }
+    }
   };
 
   const getLatLngOnClick = event => {
-    console.log(event.latlng.lat, event.latlng.lat);
-    setChosenLocation([event.latlng.lat, event.latlng.lat]);
+    console.log(event.latlng.lat, event.latlng.lng);
+    setChosenLocation([event.latlng.lat, event.latlng.lng]);
+    setMapPosition([event.latlng.lat, event.latlng.lng]);
+    //const result = getReverseGeocodeWithPosition();
+    //console.log(result.locality);
+    //setLocationName(result.locality)
   };
 
-  const renderConfirmationModal = () => {
+  const handleLocationConfirmation = () => {
+    console.log('chosen location confirmed');
+    const saveLocation = chosenLocation;
+    console.log(saveLocation);
+    setChosenLocation([null, null]);
+  };
+
+  const handleLocationCancellation = () => {
+    setChosenLocation([null, null]);
+  };
+
+  const renderLeafletPopup = () => {
     return chosenLocation[0] == null ? null : (
-      <Modal>
-        <div className='modal-header-container'>
-          <h5 id='confirm-modal-header-text'>Confirm chosen location</h5>
-        </div>
-        <div className='modal-text-container'>
-          <p>Do you want to confirm this location:</p>
-          <p>
-            latitute: <b>{chosenLocation[0]}</b> <br></br>
-            longitude: <b>{chosenLocation[1]}</b>?
-          </p>
-        </div>
-        <div className='modal-buttons-container'>
-          <button className='confirm-modal-button' onClick={handleLocationConfirmation}>
-            Confirm
-          </button>
-          <button className='confirm-modal-button' onClick={handleLocationConfirmation}>
-            Cancel
-          </button>
-        </div>
-      </Modal>
-    );
-  };
-
-  const renderLeafletCircle = () => {
-    return circlePosition == null ? null : (
-      <Circle center={mapPosition} radius={250} fillColor='blue'>
-        <Popup>You are here</Popup>
-      </Circle>
+      <Marker position={[chosenLocation[0], chosenLocation[1]]}>
+        <Popup autoPan={false} closeButton={false} closeOnClick={false}>
+          <div className='modal-header-container'>
+            <h5 id='confirm-modal-header-text'>Confirm chosen location</h5>
+          </div>
+          <div className='modal-text-container'>
+            <p>Do you want to confirm this location:</p>
+            <p>
+              latitute: <b>{chosenLocation[0]}</b> <br></br>
+              longitude: <b>{chosenLocation[1]}</b>?
+            </p>
+          </div>
+          <div className='modal-buttons-container'>
+            <button className='confirm-modal-button' onClick={handleLocationConfirmation}>
+              Confirm
+            </button>
+            <button className='confirm-modal-button' onClick={handleLocationCancellation}>
+              Cancel
+            </button>
+          </div>
+        </Popup>
+      </Marker>
     );
   };
 
@@ -99,8 +118,7 @@ const LeafletMap = () => {
           buttonId='cancel-round-button'
           buttonOnClick={() => console.log('cancel-button pressed')}
         ></LeafletControlButton>
-        {renderLeafletCircle()}
-        {renderConfirmationModal()}
+        {renderLeafletPopup()}
       </Map>
     </>
   );
