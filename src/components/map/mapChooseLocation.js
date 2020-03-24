@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Map, TileLayer, ZoomControl, Popup, Marker } from 'react-leaflet';
 import './mapComponent.css';
 import LeafletControlButton from '../button/buttonComponent';
-import { getReverseGeocodeWithPosition } from '../../services/reverseGeocodingService';
 
 const LeafletMap = () => {
   /* states */
@@ -46,9 +45,6 @@ const LeafletMap = () => {
     console.log(event.latlng.lat, event.latlng.lng);
     setChosenLocation([event.latlng.lat, event.latlng.lng]);
     setMapPosition([event.latlng.lat, event.latlng.lng]);
-    //const result = getReverseGeocodeWithPosition();
-    //console.log(result.locality);
-    //setLocationName(result.locality)
   };
 
   const handleLocationConfirmation = () => {
