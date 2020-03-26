@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3001/api/users';
+const baseUrl = 'http://localhost:3001/api/resourceMarkers';
 
 const getAll = () => {
   fetch(baseUrl)

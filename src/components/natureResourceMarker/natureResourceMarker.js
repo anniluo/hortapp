@@ -4,7 +4,10 @@ import NatureResourcePopup from '../natureResourcePopup/natureResourcePopup';
 
 const NatureResourceMarker = ({ mockMarker }) => {
   return (
-    <Marker key={mockMarker.id} position={[mockMarker.location.lat, mockMarker.location.long]}>
+    <Marker
+      key={mockMarker.id}
+      position={[mockMarker.latLng.latitude, mockMarker.latLng.longitude]}
+    >
       <NatureResourcePopup mockMarker={mockMarker} />
     </Marker>
   );

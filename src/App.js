@@ -6,7 +6,7 @@ import ChooseLocationMap from './components/map/mapChooseLocation';
 const App = () => {
   return (
     <div className='App'>
-      <ChooseLocationMap></ChooseLocationMap>
+      <LeafletMap></LeafletMap>
     </div>
   );
 };

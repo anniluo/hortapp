@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react';
+/* import React, { useState, useEffect } from 'react';
 import { Map, TileLayer, ZoomControl, Popup, Marker } from 'react-leaflet';
 import './mapComponent.css';
 import LeafletControlButton from '../button/buttonComponent';
 
 const LeafletMap = () => {
-  /* states */
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
-  const [chosenLocation, setChosenLocation] = useState([null, null]);
-  //const [locationName, setLocationName] = useState('');
 
   useEffect(() => {
     console.log('component re-rendered');
@@ -16,12 +13,12 @@ const LeafletMap = () => {
 
   const getDeviceLocation = () => {
     navigator.geolocation.getCurrentPosition(
-      position => {
+      (position) => {
         console.log(position);
         setMapPosition([position.coords.latitude, position.coords.longitude]);
         setChosenLocation([position.coords.latitude, position.coords.longitude]);
       },
-      error => {
+      (error) => {
         console.log(error.message);
       }
     );
@@ -41,7 +38,7 @@ const LeafletMap = () => {
     }
   };
 
-  const getLatLngOnClick = event => {
+  const getLatLngOnClick = (event) => {
     console.log(event.latlng.lat, event.latlng.lng);
     setChosenLocation([event.latlng.lat, event.latlng.lng]);
     setMapPosition([event.latlng.lat, event.latlng.lng]);
@@ -59,7 +56,7 @@ const LeafletMap = () => {
   };
 
   const renderLeafletPopup = () => {
-    return chosenLocation[0] == null ? null : (
+    return chosenLocation == null ? null : (
       <Marker position={[chosenLocation[0], chosenLocation[1]]}>
         <Popup autoPan={false} closeButton={false} closeOnClick={false}>
           <div className='modal-header-container'>
@@ -121,3 +118,4 @@ const LeafletMap = () => {
 };
 
 export default LeafletMap;
+ */
