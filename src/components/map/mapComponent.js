@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState, useEffect, useRef } from 'react';
 import { Map, TileLayer, ZoomControl, Circle, Popup, Marker } from 'react-leaflet';
 import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
@@ -6,17 +5,9 @@ import LeafletControlButton from '../button/buttonComponent';
 import HortappMenu from '../menu/menuComponent';
 import './mapComponent.css';
 import mockResourceMarkers from '../../utils/mockResourceMarker';
-=======
-import React, { useState } from 'react';
-import { Map, TileLayer, ZoomControl, Circle, Popup } from 'react-leaflet';
-import mockMarkers from '../../utils/mockNatureResourceMarker';
-import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
-import LeafletControlButton from '../button/buttonComponent';
-import HortappMenu from '../menu/menuComponent';
 import ModalToggle from '../modal/modalToggleComponent';
+import AddMarkerModal from '../addMarkerModal/addMarkerModalComponent';
 import Modal from '../modal/modalComponent';
-import AddResourceModal from '../addResourceModal/addResourceModalComponent';
->>>>>>> addResourceModal
 
 const LeafletMap = () => {
   /* states */
@@ -29,14 +20,11 @@ const LeafletMap = () => {
   const [confirmedLocation, setConfirmedLocation] = useState({ lat: null, long: null });
   const [isAddMarkerModeOn, setIsAddMarkerModeOn] = useState(false);
 
-<<<<<<< HEAD
   useEffect(() => {
     console.log('first effect');
     setResourceMarkers(mockResourceMarkers);
   }, []);
 
-=======
->>>>>>> addResourceModal
   /* event handlers */
   const onMenuButtonClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -152,9 +140,18 @@ const LeafletMap = () => {
             </p>
           </div>
           <div className='modal-buttons-container'>
-            <button className='confirm-modal-button' onClick={handleLocationConfirmation}>
-              Confirm
-            </button>
+            <ModalToggle
+              toggle={(showModal) => (
+                <button className='confirm-modal-button' onClick={showModal}>
+                  Confirm
+                </button>
+              )}
+              content={(hideModal) => (
+                <Modal>
+                  <AddMarkerModal hideModalOnClick={hideModal}></AddMarkerModal>
+                </Modal>
+              )}
+            ></ModalToggle>
             <button className='confirm-modal-button' onClick={emptyChosenLocation}>
               Cancel
             </button>
