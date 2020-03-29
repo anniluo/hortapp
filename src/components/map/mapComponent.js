@@ -5,6 +5,9 @@ import LeafletControlButton from '../button/buttonComponent';
 import HortappMenu from '../menu/menuComponent';
 import './mapComponent.css';
 import mockResourceMarkers from '../../utils/mockResourceMarker';
+import ModalToggle from '../modal/modalToggleComponent';
+import AddMarkerModal from '../addMarkerModal/addMarkerModalComponent';
+import Modal from '../modal/modalComponent';
 
 const LeafletMap = () => {
   /* states */
@@ -137,9 +140,18 @@ const LeafletMap = () => {
             </p>
           </div>
           <div className='modal-buttons-container'>
-            <button className='confirm-modal-button' onClick={handleLocationConfirmation}>
-              Confirm
-            </button>
+            <ModalToggle
+              toggle={(showModal) => (
+                <button className='confirm-modal-button' onClick={showModal}>
+                  Confirm
+                </button>
+              )}
+              content={(hideModal) => (
+                <Modal>
+                  <AddMarkerModal hideModalOnClick={hideModal}></AddMarkerModal>
+                </Modal>
+              )}
+            ></ModalToggle>
             <button className='confirm-modal-button' onClick={emptyChosenLocation}>
               Cancel
             </button>

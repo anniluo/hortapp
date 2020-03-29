@@ -41,6 +41,9 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
                 <h5>Login to Hortapp</h5>
                 <button className='close-modal-button no-border' onClick={hideModal}></button>
               </div>
+              <div className='modal-error-container'>
+                <p>Error message will be dispayled here</p>
+              </div>
               <form id='login-form' className='modal-form'>
                 <input className='modal-form-input' type='text' placeholder='username'></input>
                 <input className='modal-form-input' type='text' placeholder='password'></input>
@@ -65,6 +68,9 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
               <div className='modal-header-container'>
                 <h5>Signup to Hortapp</h5>
                 <button className='close-modal-button no-border' onClick={hideModal}></button>
+              </div>
+              <div className='modal-error-container'>
+                <p>Error message will be dispayled here</p>
               </div>
               <form id='singup-form' className='modal-form'>
                 <input className='modal-form-input' type='email' placeholder='e-mail'></input>
