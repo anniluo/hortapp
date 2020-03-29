@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './addResourceModalComponent.css';
+import './addMarkerModalComponent.css';
 import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
 
 const AddResourceModal = ({ hideModalOnClick }) => {
@@ -8,7 +8,7 @@ const AddResourceModal = ({ hideModalOnClick }) => {
     'Puolukka',
     'Metsämansikka',
     'Nokkonen',
-    'Voikukka'
+    'Voikukka',
   ]);
 
   return (
@@ -16,6 +16,9 @@ const AddResourceModal = ({ hideModalOnClick }) => {
       <div className='resource-modal-header'>
         <h5>Add a new Resource</h5>
         <button id='close-modal-button' onClick={hideModalOnClick}></button>
+      </div>
+      <div className='modal-error-container'>
+        <p>Error message will be dispayled here</p>
       </div>
       <form className='resource-modal-form'>
         <input type='text' placeholder='location'></input>

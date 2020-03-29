@@ -19,7 +19,16 @@
   grid-gap: 30px;
 }
 
-#login-button {
+.confirm-modal-header-text {
+  width: 12em;
+  margin: 0 0 1em 0;
+}
+
+.modal-error-container p {
+  color: #8b0000;
+}
+
+#modal-error-container #login-button {
   grid-column: 1/2;
   grid-row: 1/1;
   left: 0px;
@@ -37,12 +46,22 @@
   margin-top: 1em;
 }
 
+.modal-buttons-container {
+  display: grid;
+  grid-gap: 1em;
+}
+
 .modal-form-submit {
   position: relative;
   left: 24%;
   margin-top: 2em;
   width: 50%;
   height: 2.8em;
+}
+
+.confirm-modal-button {
+  position: relative;
+  grid-row: 1/1;
 }
 
 .about-text-container {

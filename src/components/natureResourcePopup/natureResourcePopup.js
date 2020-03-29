@@ -18,9 +18,6 @@ const NatureResourcePopup = ({ mockMarker }) => {
           <b>Address</b> (lat: 60.192059, long:24.945831)
         </p>
         <p id='user-comment-text'>Comment from the user</p>
-        <a id='wikipedia-link' href='#'>
-          Link to Wikipedia
-        </a>
       </div>
     </Popup>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import LeafletMap from './components/map/mapComponent';
+import ChooseLocationMap from './components/map/mapChooseLocation';
 
 const App = () => {
   return (

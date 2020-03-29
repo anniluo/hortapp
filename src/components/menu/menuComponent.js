@@ -12,11 +12,11 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
         <p>Filter</p>
         <div className='filter-options-container'>
           <input type='radio' id='option1' value='Option 1' />
-          <label for='option1'>Option 1</label>
+          <label htmlFor='option1'>Option 1</label>
           <input type='radio' id='option2' value='Option 2' />
-          <label for='option2'>Option 2</label>
+          <label htmlFor='option2'>Option 2</label>
           <input type='radio' id='option2' value='Option 3' />
-          <label for='option3'>Option 3</label>
+          <label htmlFor='option3'>Option 3</label>
         </div>
       </div>
     );
@@ -30,16 +30,19 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
       </div>
       <div className='menu-contents'>
         <ModalToggle
-          toggle={showModal => (
+          toggle={(showModal) => (
             <button className='full-button square-button no-border' onClick={showModal}>
               Login
             </button>
           )}
-          content={hideModal => (
+          content={(hideModal) => (
             <Modal>
               <div className='modal-header-container'>
                 <h5>Login to Hortapp</h5>
                 <button className='close-modal-button no-border' onClick={hideModal}></button>
+              </div>
+              <div className='modal-error-container'>
+                <p>Error message will be dispayled here</p>
               </div>
               <form id='login-form' className='modal-form'>
                 <input className='modal-form-input' type='text' placeholder='username'></input>
@@ -55,16 +58,19 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
           )}
         />
         <ModalToggle
-          toggle={showModal => (
+          toggle={(showModal) => (
             <button className='full-button square-button no-border' onClick={showModal}>
               Signup
             </button>
           )}
-          content={hideModal => (
+          content={(hideModal) => (
             <Modal>
               <div className='modal-header-container'>
                 <h5>Signup to Hortapp</h5>
                 <button className='close-modal-button no-border' onClick={hideModal}></button>
+              </div>
+              <div className='modal-error-container'>
+                <p>Error message will be dispayled here</p>
               </div>
               <form id='singup-form' className='modal-form'>
                 <input className='modal-form-input' type='email' placeholder='e-mail'></input>
@@ -87,12 +93,12 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
         />
         {renderMapFilter()}
         <ModalToggle
-          toggle={showModal => (
+          toggle={(showModal) => (
             <button className='full-button square-button no-border' onClick={showModal}>
               About
             </button>
           )}
-          content={hideModal => (
+          content={(hideModal) => (
             <Modal>
               <div className='modal-header-container'>
                 <h5>About Hortapp</h5>

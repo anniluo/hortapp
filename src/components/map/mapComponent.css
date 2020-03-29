@@ -1,1 +1,14 @@
+.header-container {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #738ada;
+  opacity: 0.9;
+}
 
+#choose-location-header-text {
+  color: #252525;
+  margin: 0.7em;
+}
