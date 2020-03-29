@@ -19,12 +19,16 @@
   grid-gap: 30px;
 }
 
-#confirm-modal-header-text {
+.confirm-modal-header-text {
   width: 12em;
   margin: 0 0 1em 0;
 }
 
-#login-button {
+.modal-error-container p {
+  color: #8b0000;
+}
+
+#modal-error-container #login-button {
   grid-column: 1/2;
   grid-row: 1/1;
   left: 0px;
