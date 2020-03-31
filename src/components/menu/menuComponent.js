@@ -25,7 +25,9 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
   return menuIsOpen ? (
     <div className='menu-container'>
       <div className='menu-header-container'>
-        <h5 className='menu-header-text' onClick={onMenuButtonClick}>Menu</h5>
+        <h5 className='menu-header-text' onClick={onMenuButtonClick}>
+          Menu
+        </h5>
         <button onClick={onMenuButtonClick} className='menu-button menu-open-icon'></button>
       </div>
       <div className='menu-contents'>
@@ -36,25 +38,11 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
             </button>
           )}
           content={(hideModal) => (
-            <Modal>
-              <div className='modal-header-container'>
-                <h5>Login to Hortapp</h5>
-                <button className='close-modal-button no-border' onClick={hideModal}></button>
-              </div>
-              <div className='modal-error-container'>
-                <p>Error message will be dispayled here</p>
-              </div>
-              <form id='login-form' className='modal-form'>
-                <input className='modal-form-input' type='text' placeholder='username'></input>
-                <input className='modal-form-input' type='text' placeholder='password'></input>
-                <input
-                  onClick={hideModal}
-                  className='modal-form-submit'
-                  type='submit'
-                  value='Confirm'
-                ></input>
-              </form>
-            </Modal>
+            <Modal
+              modalHeaderText='Login to Hortapp'
+              hideModalOnClick={hideModal}
+              formId='login-form'
+            />
           )}
         />
         <ModalToggle
@@ -64,31 +52,11 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
             </button>
           )}
           content={(hideModal) => (
-            <Modal>
-              <div className='modal-header-container'>
-                <h5>Signup to Hortapp</h5>
-                <button className='close-modal-button no-border' onClick={hideModal}></button>
-              </div>
-              <div className='modal-error-container'>
-                <p>Error message will be dispayled here</p>
-              </div>
-              <form id='singup-form' className='modal-form'>
-                <input className='modal-form-input' type='email' placeholder='e-mail'></input>
-                <input className='modal-form-input' type='text' placeholder='username'></input>
-                <input className='modal-form-input' type='text' placeholder='password'></input>
-                <input
-                  className='modal-form-input'
-                  type='text'
-                  placeholder='confirm password'
-                ></input>
-                <input
-                  onClick={hideModal}
-                  className='modal-form-submit'
-                  type='submit'
-                  value='Confirm'
-                ></input>
-              </form>
-            </Modal>
+            <Modal
+              modalHeaderText='Signup to Hortapp'
+              hideModalOnClick={hideModal}
+              formId='signup-form'
+            />
           )}
         />
         {renderMapFilter()}
@@ -99,15 +67,7 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
             </button>
           )}
           content={(hideModal) => (
-            <Modal>
-              <div className='modal-header-container'>
-                <h5>About Hortapp</h5>
-                <button className='close-modal-button no-border' onClick={hideModal}></button>
-              </div>
-              <div className='about-text-container'>
-                Here I'll write a small description of the app
-              </div>
-            </Modal>
+            <Modal modalHeaderText='Login to Hortapp' hideModalOnClick={hideModal} formId='' />
           )}
         />
       </div>

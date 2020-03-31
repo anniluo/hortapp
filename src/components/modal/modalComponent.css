@@ -67,3 +67,7 @@
 .about-text-container {
   margin: 2em;
 }
+
+.hidden {
+  display: none;
+}
