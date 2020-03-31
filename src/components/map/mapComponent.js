@@ -73,7 +73,7 @@ const LeafletMap = () => {
       setMapPosition([event.latlng.lat, event.latlng.lng]);
       confirmationPopupToggle();
     } else {
-      console.log('selection mode is not on');
+      console.log('add marker mode is not on');
     }
   };
 
@@ -93,7 +93,6 @@ const LeafletMap = () => {
   };
 
   /* rendering */
-
   const renderHortappMenu = () => {
     return !isAddMarkerModeOn ? (
       <HortappMenu

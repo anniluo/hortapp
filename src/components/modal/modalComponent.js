@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './modalComponent.css';
 
 const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
+  useEffect(() => {
+    checkOtherOpenModals();
+  }, []);
+
+  const checkOtherOpenModals = () => {
+    const closeModalButton = document.getElementsByClassName('close-modal-button');
+    if (closeModalButton.length > 1) {
+      closeModalButton[0].click();
+    }
+  };
+
   return ReactDOM.createPortal(
     <div className='modal-container'>
       <div className='modal-header-container'>

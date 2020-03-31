@@ -5,7 +5,6 @@ import ModalToggle from '../modal/modalToggleComponent';
 import Modal from '../modal/modalComponent';
 
 const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
-  /* rendering */
   const renderMapFilter = () => {
     return (
       <div className='filter-container'>
@@ -67,7 +66,7 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
             </button>
           )}
           content={(hideModal) => (
-            <Modal modalHeaderText='Login to Hortapp' hideModalOnClick={hideModal} formId='' />
+            <Modal modalHeaderText='About Hortapp' hideModalOnClick={hideModal} formId='' />
           )}
         />
       </div>
