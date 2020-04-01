@@ -41,7 +41,7 @@ const AddResourceModal = ({ hideModalOnClick }) => {
         <button id='close-modal-button' onClick={hideModalOnClick}></button>
       </div>
       {renderErrorMessage()}
-      <form id='marker-form' className='modal-form'>
+      <form id='marker-form' className='modal-form' onSubmit={handleAddMarker}>
         <input
           className='form-input'
           type='text'
@@ -60,12 +60,7 @@ const AddResourceModal = ({ hideModalOnClick }) => {
           onChange={({ target }) => setComment(target.value)}
         ></textarea>
       </form>
-      <input
-        onClick={handleAddMarker}
-        className='modal-form-submit'
-        type='submit'
-        value='Confirm'
-      />
+      <input className='modal-form-submit' type='submit' value='Confirm' />
     </div>,
     document.getElementById('modal-root')
   );

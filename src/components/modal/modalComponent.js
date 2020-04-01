@@ -47,7 +47,11 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
       {formId !== '' ? (
         <>
           {renderErrorMessage()}
-          <form id={formId} className='modal-form'>
+          <form
+            id={formId}
+            className='modal-form'
+            onSubmit={formId === 'login-form' ? handleLogin : handleSignup}
+          >
             <input
               className={formId === 'login-form' ? 'hidden form-input' : 'form-input'}
               type='email'
@@ -76,12 +80,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
               value={confirmPassword}
               onChange={({ target }) => setConfirmPassword(target.value)}
             />
-            <input
-              onClick={formId === 'login-form' ? handleLogin : handleSignup}
-              className='modal-form-submit'
-              type='submit'
-              value='Confirm'
-            />
+            <input className='modal-form-submit' type='submit' value='Confirm' />
           </form>
         </>
       ) : (
