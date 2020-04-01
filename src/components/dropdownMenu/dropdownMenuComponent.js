@@ -5,12 +5,12 @@ const Dropdownmenu = ({ resources }) => {
   const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState(false);
   const [chosenResource, setChosenResource] = useState(resources[0], 'Mustikka');
 
-  const showDropdownMenu = event => {
+  const showDropdownMenu = (event) => {
     event.preventDefault();
     setDropdownMenuIsOpen(!dropdownMenuIsOpen);
   };
 
-  const handleResourceChange = resource => {
+  const handleResourceChange = (resource) => {
     setChosenResource(resource);
     setDropdownMenuIsOpen(false);
   };
@@ -31,7 +31,7 @@ const Dropdownmenu = ({ resources }) => {
       </div>
       {dropdownMenuIsOpen && (
         <div className='dropdown-content'>
-          {resources.map(resource => (
+          {resources.map((resource) => (
             <a key={resource} onClick={() => handleResourceChange(resource)}>
               {resource}
             </a>

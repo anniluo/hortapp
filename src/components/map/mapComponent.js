@@ -7,10 +7,15 @@ import './mapComponent.css';
 import mockResourceMarkers from '../../utils/mockResourceMarker';
 import ModalToggle from '../modal/modalToggleComponent';
 import AddMarkerModal from '../addMarkerModal/addMarkerModalComponent';
-import Modal from '../modal/modalComponent';
+
+// TODO:
+// 1. close open popups when menubutton is clicked
+// 2. switch add marker- button to cancel button in add marker-mode
+// 3. Disable interaction with existing markers when add marker-mode is on
+// 4. Close confirmation popup when confirm-button is clicked
+// 5. Disable interactions outside the modal?
 
 const LeafletMap = () => {
-  /* states */
   const markerRef = useRef(null);
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +30,6 @@ const LeafletMap = () => {
     setResourceMarkers(mockResourceMarkers);
   }, []);
 
-  /* event handlers */
   const onMenuButtonClick = () => {
     setIsMenuOpen(!isMenuOpen);
     // close possible opened popups
@@ -50,7 +54,6 @@ const LeafletMap = () => {
   };
 
   const confirmationPopupToggle = () => {
-    // TODO: fix confirmation popup not opening if other popup is open
     if (!isAddMarkerModeOn) {
       console.log('add marker mode is not on');
     } else {
@@ -92,7 +95,7 @@ const LeafletMap = () => {
     setChosenLocation({ lat: null, long: null });
   };
 
-  /* rendering */
+  // renders
   const renderHortappMenu = () => {
     return !isAddMarkerModeOn ? (
       <HortappMenu
@@ -146,9 +149,7 @@ const LeafletMap = () => {
                 </button>
               )}
               content={(hideModal) => (
-                <Modal>
-                  <AddMarkerModal hideModalOnClick={hideModal}></AddMarkerModal>
-                </Modal>
+                <AddMarkerModal hideModalOnClick={hideModal}></AddMarkerModal>
               )}
             ></ModalToggle>
             <button className='confirm-modal-button' onClick={emptyChosenLocation}>
@@ -160,17 +161,36 @@ const LeafletMap = () => {
     );
   };
 
-  const renderSelectionModeText = () => {
-    return isAddMarkerModeOn ? (
-      <div className='header-container'>
-        <h4 id='choose-location-header-text'>Choose a Location</h4>
-      </div>
-    ) : null;
+  const renderLeafletControlButtons = () => {
+    return (
+      <>
+        <LeafletControlButton
+          buttonPosition='bottomright'
+          toolTipText='Get your Location'
+          buttonId='location-round-button'
+          buttonOnClick={getDeviceLocation}
+        ></LeafletControlButton>
+        {!isAddMarkerModeOn ? (
+          <LeafletControlButton
+            buttonPosition='bottomright'
+            toolTipText='Add a New Marker'
+            buttonId='add-round-button'
+            buttonOnClick={enterAddMarkerMode}
+          ></LeafletControlButton>
+        ) : (
+          <LeafletControlButton
+            buttonPosition='bottomright'
+            toolTipText='Cancel and go back to map view'
+            buttonId='cancel-round-button'
+            buttonOnClick={handleSelectionModeCancel}
+          ></LeafletControlButton>
+        )}
+      </>
+    );
   };
 
   return (
     <>
-      {renderSelectionModeText}
       <Map
         id='hortapp-map'
         center={mapPosition}
@@ -183,24 +203,7 @@ const LeafletMap = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <LeafletControlButton
-          buttonPosition='bottomright'
-          toolTipText='Get your Location'
-          buttonId='location-round-button'
-          buttonOnClick={getDeviceLocation}
-        ></LeafletControlButton>
-        <LeafletControlButton
-          buttonPosition='bottomright'
-          toolTipText='Add a New Nature Resource'
-          buttonId='add-round-button'
-          buttonOnClick={enterAddMarkerMode}
-        ></LeafletControlButton>
-        <LeafletControlButton
-          buttonPosition='bottomright'
-          toolTipText='Cancel and go back to map view'
-          buttonId='cancel-round-button'
-          buttonOnClick={handleSelectionModeCancel}
-        ></LeafletControlButton>
+        {renderLeafletControlButtons()}
         {renderNatureResourceMarkers()}
         {renderHortappMenu()}
         {renderLeafletPopup()}
