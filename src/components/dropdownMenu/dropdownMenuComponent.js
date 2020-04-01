@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import './dropdownMenuComponent.css';
 
 const Dropdownmenu = ({ resources }) => {
-  const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState(false);
-  const [chosenResource, setChosenResource] = useState(resources[0], 'Mustikka');
+  const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState('false');
+  const [chosenResource, setChosenResource] = useState('Choose a Resource');
 
   const showDropdownMenu = (event) => {
     event.preventDefault();
@@ -21,13 +21,7 @@ const Dropdownmenu = ({ resources }) => {
         <button className='dropdown-menu-button square-button' onClick={showDropdownMenu}>
           <i className='fa fa-caret-down'></i>
         </button>
-        <input
-          className='dropdown-input'
-          value={chosenResource}
-          type='text'
-          placeholder='resource'
-          disabled
-        />
+        <p className='dropdown-input'>{chosenResource}</p>
       </div>
       {dropdownMenuIsOpen && (
         <div className='dropdown-content'>

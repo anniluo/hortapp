@@ -7,6 +7,7 @@ import './mapComponent.css';
 import mockResourceMarkers from '../../utils/mockResourceMarker';
 import ModalToggle from '../modal/modalToggleComponent';
 import AddMarkerModal from '../addMarkerModal/addMarkerModalComponent';
+import resourceMarkerService from '../../services/resourceMarkers';
 
 // TODO:
 // 1. close open popups when menubutton is clicked
@@ -15,6 +16,7 @@ import AddMarkerModal from '../addMarkerModal/addMarkerModalComponent';
 
 const LeafletMap = () => {
   const markerRef = useRef(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [circlePosition, setCirclePosition] = useState(null);
@@ -22,12 +24,26 @@ const LeafletMap = () => {
   const [chosenLocation, setChosenLocation] = useState({ lat: null, long: null });
   const [confirmedLocation, setConfirmedLocation] = useState({ lat: null, long: null });
   const [isAddMarkerModeOn, setIsAddMarkerModeOn] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   useEffect(() => {
     console.log('first effect');
+    getResourceMarkers();
     setResourceMarkers(mockResourceMarkers);
   }, []);
+
+  const getResourceMarkers = async () => {
+    try {
+      const markers = await resourceMarkerService.getAll();
+      setResourceMarkers(markers);
+    } catch (error) {
+      setErrorMessage('Error occured while trying to fetch markers');
+
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
+  };
 
   const onMenuButtonClick = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -35,7 +51,6 @@ const LeafletMap = () => {
   };
 
   const enterAddMarkerMode = () => {
-    console.log('entering add marker mode');
     setIsAddMarkerModeOn(true);
   };
 
@@ -53,17 +68,12 @@ const LeafletMap = () => {
   };
 
   const confirmationPopupToggle = () => {
-    if (!isAddMarkerModeOn) {
-      console.log('add marker mode is not on');
-    } else {
+    if (isAddMarkerModeOn) {
       if (document.getElementsByClassName('leaflet-popup-content-wrapper').length === 0) {
-        console.log('no popup open, opening popup');
         const marker = markerRef.current;
         if (marker != null) {
           marker.leafletElement.openPopup();
         }
-      } else {
-        console.log('popup is already open');
       }
     }
   };
@@ -74,8 +84,6 @@ const LeafletMap = () => {
       setChosenLocation({ lat: event.latlng.lat, long: event.latlng.lng });
       setMapPosition([event.latlng.lat, event.latlng.lng]);
       confirmationPopupToggle();
-    } else {
-      console.log('add marker mode is not on');
     }
   };
 
@@ -119,10 +127,8 @@ const LeafletMap = () => {
   };
 
   const renderLeafletCircle = () => {
-    return circlePosition == null ? null : (
-      <Circle center={mapPosition} radius={250} fillColor='blue'>
-        <Popup>You are here</Popup>
-      </Circle>
+    return circlePosition === null ? null : (
+      <Circle center={mapPosition} radius={250} fillColor='blue'></Circle>
     );
   };
 

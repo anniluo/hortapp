@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './addMarkerModalComponent.css';
 import '../modal/modalComponent.css';
 import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
+import natureResourcesService from '../../services/natureResources';
 
 // TODO:
 // 1. get chosen resource from dropdownmenu component
@@ -11,15 +12,28 @@ import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
 
 const AddResourceModal = ({ hideModalOnClick }) => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [resources, setResources] = useState([
-    'Mustikka',
-    'Puolukka',
-    'Metsämansikka',
-    'Nokkonen',
-    'Voikukka',
-  ]);
+  const [resources, setResources] = useState([]);
   const [locationName, setLocationName] = useState('');
   const [comment, setComment] = useState('');
+
+  useEffect(() => {
+    getNatureResources();
+  }, []);
+
+  const getNatureResources = async () => {
+    try {
+      const natureResources = await natureResourcesService.getAll();
+      const resourceNames = natureResources.map((resource) => {
+        return resource.name.en;
+      });
+      setResources(resourceNames);
+    } catch (error) {
+      setErrorMessage('Error occured while trying to fetch resources');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
+  };
 
   const handleAddMarker = (event) => {
     event.preventDefault();

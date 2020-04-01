@@ -6,6 +6,7 @@ import './modalComponent.css';
 
 // TODO
 // 1. Disable other interactions when modal is open
+// 2. onSuccess messages
 
 const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
   const [errorMessage, setErrorMessage] = useState(null);
