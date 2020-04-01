@@ -10,10 +10,8 @@ import AddMarkerModal from '../addMarkerModal/addMarkerModalComponent';
 
 // TODO:
 // 1. close open popups when menubutton is clicked
-// 2. switch add marker- button to cancel button in add marker-mode
-// 3. Disable interaction with existing markers when add marker-mode is on
-// 4. Close confirmation popup when confirm-button is clicked
-// 5. Disable interactions outside the modal?
+// 2. Disable interaction with existing markers when add marker-mode is on
+// 3. Close confirmation popup when confirm-button is clicked
 
 const LeafletMap = () => {
   const markerRef = useRef(null);
@@ -24,6 +22,7 @@ const LeafletMap = () => {
   const [chosenLocation, setChosenLocation] = useState({ lat: null, long: null });
   const [confirmedLocation, setConfirmedLocation] = useState({ lat: null, long: null });
   const [isAddMarkerModeOn, setIsAddMarkerModeOn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     console.log('first effect');
@@ -101,7 +100,7 @@ const LeafletMap = () => {
       <HortappMenu
         onMenuButtonClick={onMenuButtonClick}
         menuIsOpen={isMenuOpen}
-        setMenuIsOpen={setIsMenuOpen}
+        isLoggedIn={isLoggedIn}
       ></HortappMenu>
     ) : null;
   };
@@ -171,12 +170,14 @@ const LeafletMap = () => {
           buttonOnClick={getDeviceLocation}
         ></LeafletControlButton>
         {!isAddMarkerModeOn ? (
-          <LeafletControlButton
-            buttonPosition='bottomright'
-            toolTipText='Add a New Marker'
-            buttonId='add-round-button'
-            buttonOnClick={enterAddMarkerMode}
-          ></LeafletControlButton>
+          isLoggedIn ? (
+            <LeafletControlButton
+              buttonPosition='bottomright'
+              toolTipText='Add a New Marker'
+              buttonId='add-round-button'
+              buttonOnClick={enterAddMarkerMode}
+            ></LeafletControlButton>
+          ) : null
         ) : (
           <LeafletControlButton
             buttonPosition='bottomright'

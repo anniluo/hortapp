@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import ReactDOM, { render } from 'react-dom';
+import ReactDOM from 'react-dom';
+import loginService from '../../services/login';
+import signupService from '../../services/signup';
 import './modalComponent.css';
 
+// TODO
+// 1. Disable other interactions when modal is open
+
 const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
-  const [errorMessage, setErrorMessage] = useState('error message will be displayed here');
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [user, setUser] = useState(null);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,14 +26,51 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
     }
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    console.log('logging in with', username, password);
+
+    try {
+      const user = await loginService.login({ username, password });
+
+      setUser(user);
+      setUsername('');
+      setPassword('');
+    } catch (error) {
+      setErrorMessage('incorrect username or password');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
   };
 
-  const handleSignup = (event) => {
+  const handleSignup = async (event) => {
     event.preventDefault();
-    console.log('signing up  with', email, username, password, confirmPassword);
+
+    if (confirmPassword === password) {
+      try {
+        await signupService.signup({
+          email: email,
+          username: username,
+          password: password,
+        });
+
+        setEmail('');
+        setUsername('');
+        setPassword('');
+        setConfirmPassword('');
+      } catch (error) {
+        setErrorMessage('an error occured while trying to create a user');
+        console.log(error);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+      }
+    } else {
+      setErrorMessage('Your password and confirmation password do not match.');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
   };
 
   const renderErrorMessage = () => {
@@ -36,6 +79,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
         <p className='error-message-text'>{errorMessage}</p>
       </div>
     ) : null;
+    // or errorMessage !== null && -render elements here-
   };
 
   return ReactDOM.createPortal(

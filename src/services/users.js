@@ -1,22 +1,14 @@
-const baseUrl = 'http://localhost:3001/api/users';
+import axios from 'axios';
+const baseUrl = '/api/users';
 
-const getAll = () => {
-  fetch(baseUrl)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      //console.log(data);
-      return data;
-    })
-    .catch((error) => {
-      console.log('error occured when trying to fetch all the markers', error);
-      return error;
-    });
+const getOneWith = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`);
+  return request.then((response) => response.data);
 };
 
-const create = () => {};
+const update = (id, newUserObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newUserObject);
+  return request.then((response) => response.data);
+};
 
-const update = () => {};
-
-export default { getAll, create, update };
+export default { getOneWith, update };

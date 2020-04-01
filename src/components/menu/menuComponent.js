@@ -4,7 +4,17 @@ import './menuComponent.css';
 import ModalToggle from '../modal/modalToggleComponent';
 import Modal from '../modal/modalComponent';
 
-const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
+// TODO
+// 1. Display the name of the user logged in
+
+const HortappMenu = ({ menuIsOpen, onMenuButtonClick, isLoggedIn }) => {
+  const handleLogout = (event) => {
+    event.preventDefault();
+    console.log('logout-button clicked');
+    // remove token
+    // set isloggedin to false
+  };
+
   const renderMapFilter = () => {
     return (
       <div className='filter-container'>
@@ -28,36 +38,47 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
           Menu
         </h5>
         <button onClick={onMenuButtonClick} className='menu-button menu-open-icon'></button>
+        <p>
+          Logged in as <b>Username</b>
+        </p>
       </div>
       <div className='menu-contents'>
-        <ModalToggle
-          toggle={(showModal) => (
-            <button className='full-button square-button no-border' onClick={showModal}>
-              Login
-            </button>
-          )}
-          content={(hideModal) => (
-            <Modal
-              modalHeaderText='Login to Hortapp'
-              hideModalOnClick={hideModal}
-              formId='login-form'
+        {!isLoggedIn ? (
+          <>
+            <ModalToggle
+              toggle={(showModal) => (
+                <button className='full-button square-button no-border' onClick={showModal}>
+                  Log in
+                </button>
+              )}
+              content={(hideModal) => (
+                <Modal
+                  modalHeaderText='Login to Hortapp'
+                  hideModalOnClick={hideModal}
+                  formId='login-form'
+                />
+              )}
             />
-          )}
-        />
-        <ModalToggle
-          toggle={(showModal) => (
-            <button className='full-button square-button no-border' onClick={showModal}>
-              Signup
-            </button>
-          )}
-          content={(hideModal) => (
-            <Modal
-              modalHeaderText='Signup to Hortapp'
-              hideModalOnClick={hideModal}
-              formId='signup-form'
+            <ModalToggle
+              toggle={(showModal) => (
+                <button className='full-button square-button no-border' onClick={showModal}>
+                  Sign up
+                </button>
+              )}
+              content={(hideModal) => (
+                <Modal
+                  modalHeaderText='Signup to Hortapp'
+                  hideModalOnClick={hideModal}
+                  formId='signup-form'
+                />
+              )}
             />
-          )}
-        />
+          </>
+        ) : (
+          <button className='full-button square-button no-border' onClick={handleLogout}>
+            Log out
+          </button>
+        )}
         {renderMapFilter()}
         <ModalToggle
           toggle={(showModal) => (
