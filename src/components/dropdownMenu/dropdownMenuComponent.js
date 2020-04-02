@@ -1,38 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './dropdownMenuComponent.css';
 
-const Dropdownmenu = ({ resources }) => {
-  const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState(false);
-  const [chosenResource, setChosenResource] = useState(resources[0], 'Mustikka');
+const Dropdownmenu = ({
+  dropdownMenuIsOpen,
+  handleDropdownMenuToggle,
+  handleResourceChange,
+  chosenResource,
+}) => {
+  const [resources] = useState(['Mustikka', 'Mansikka', 'Omena']);
 
-  const showDropdownMenu = event => {
-    event.preventDefault();
-    setDropdownMenuIsOpen(!dropdownMenuIsOpen);
-  };
-
-  const handleResourceChange = resource => {
-    setChosenResource(resource);
-    setDropdownMenuIsOpen(false);
-  };
+  useEffect(() => {
+    handleResourceChange(resources[0]);
+  }, []);
 
   return (
     <>
       <div className='dropdown-container'>
-        <button className='dropdown-menu-button square-button' onClick={showDropdownMenu}>
+        <button className='dropdown-menu-button square-button' onClick={handleDropdownMenuToggle}>
           <i className='fa fa-caret-down'></i>
         </button>
-        <input
-          className='dropdown-input'
-          value={chosenResource}
-          type='text'
-          placeholder='resource'
-          disabled
-        />
+        <p className='dropdown-input'>{chosenResource}</p>
       </div>
       {dropdownMenuIsOpen && (
         <div className='dropdown-content'>
-          {resources.map(resource => (
-            <a key={resource} onClick={() => handleResourceChange(resource)}>
+          {resources.map((resource) => (
+            <a
+              key={resource}
+              onClick={() => {
+                handleResourceChange(resource);
+              }}
+            >
               {resource}
             </a>
           ))}

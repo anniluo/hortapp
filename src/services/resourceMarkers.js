@@ -1,22 +1,29 @@
+import axios from 'axios';
 const baseUrl = 'http://localhost:3001/api/resourceMarkers';
 
-const getAll = () => {
-  fetch(baseUrl)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      //console.log(data);
-      return data;
-    })
-    .catch((error) => {
-      console.log('error occured when trying to fetch all the markers', error);
-      return error;
-    });
+let token = null;
+
+const setToken = (newToken) => {
+  token = `bearer ${newToken}`;
 };
 
-const create = () => {};
+const getAll = () => {
+  const request = axios.get(baseUrl);
+  return request.then((response) => response.data);
+};
 
-const update = () => {};
+const create = async (newMarkerObject) => {
+  const config = {
+    headers: { Authorization: token },
+  };
 
-export default { getAll, create, update };
+  const response = await axios.post(baseUrl, newMarkerObject, config);
+  return response.data;
+};
+
+const update = (id, newMarkerObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newMarkerObject);
+  return request.then((response) => response.data);
+};
+
+export default { getAll, create, update, setToken };

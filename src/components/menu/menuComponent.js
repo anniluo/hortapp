@@ -3,8 +3,15 @@ import Control from 'react-leaflet-control';
 import './menuComponent.css';
 import ModalToggle from '../modal/modalToggleComponent';
 import Modal from '../modal/modalComponent';
+import userService from '../../services/users';
 
-const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
+const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) => {
+  const handleLogout = (event) => {
+    event.preventDefault();
+    userService.clearLocalStorage('loggedHortappUser');
+    handleUserChange(null);
+  };
+
   const renderMapFilter = () => {
     return (
       <div className='filter-container'>
@@ -28,36 +35,51 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick }) => {
           Menu
         </h5>
         <button onClick={onMenuButtonClick} className='menu-button menu-open-icon'></button>
+        {user && (
+          <p>
+            Logged in as <b>{user.username}</b>
+          </p>
+        )}
       </div>
       <div className='menu-contents'>
-        <ModalToggle
-          toggle={(showModal) => (
-            <button className='full-button square-button no-border' onClick={showModal}>
-              Login
-            </button>
-          )}
-          content={(hideModal) => (
-            <Modal
-              modalHeaderText='Login to Hortapp'
-              hideModalOnClick={hideModal}
-              formId='login-form'
+        {user === null ? (
+          <>
+            <ModalToggle
+              toggle={(showModal) => (
+                <button className='full-button square-button no-border' onClick={showModal}>
+                  Log in
+                </button>
+              )}
+              content={(hideModal) => (
+                <Modal
+                  modalHeaderText='Login to Hortapp'
+                  hideModalOnClick={hideModal}
+                  formId='login-form'
+                  user={user}
+                  handleUserChange={handleUserChange}
+                />
+              )}
             />
-          )}
-        />
-        <ModalToggle
-          toggle={(showModal) => (
-            <button className='full-button square-button no-border' onClick={showModal}>
-              Signup
-            </button>
-          )}
-          content={(hideModal) => (
-            <Modal
-              modalHeaderText='Signup to Hortapp'
-              hideModalOnClick={hideModal}
-              formId='signup-form'
+            <ModalToggle
+              toggle={(showModal) => (
+                <button className='full-button square-button no-border' onClick={showModal}>
+                  Sign up
+                </button>
+              )}
+              content={(hideModal) => (
+                <Modal
+                  modalHeaderText='Signup to Hortapp'
+                  hideModalOnClick={hideModal}
+                  formId='signup-form'
+                />
+              )}
             />
-          )}
-        />
+          </>
+        ) : (
+          <button className='full-button square-button no-border' onClick={handleLogout}>
+            Log out
+          </button>
+        )}
         {renderMapFilter()}
         <ModalToggle
           toggle={(showModal) => (

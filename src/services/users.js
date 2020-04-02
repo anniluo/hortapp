@@ -1,22 +1,26 @@
-const baseUrl = 'http://localhost:3001/api/users';
+import axios from 'axios';
+const baseUrl = '/api/users';
 
-const getAll = () => {
-  fetch(baseUrl)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      //console.log(data);
-      return data;
-    })
-    .catch((error) => {
-      console.log('error occured when trying to fetch all the markers', error);
-      return error;
-    });
+const setToLocalStorage = (key, user) => {
+  window.localStorage.setItem(key, JSON.stringify(user));
 };
 
-const create = () => {};
+const getFromLocalStorage = (key) => {
+  return window.localStorage.getItem(key);
+};
 
-const update = () => {};
+const clearLocalStorage = (key) => {
+  window.localStorage.removeItem(key);
+};
 
-export default { getAll, create, update };
+const getOneWith = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`);
+  return request.then((response) => response.data);
+};
+
+const update = (id, newUserObject) => {
+  const request = axios.put(`${baseUrl}/${id}`, newUserObject);
+  return request.then((response) => response.data);
+};
+
+export default { getOneWith, update, setToLocalStorage, clearLocalStorage, getFromLocalStorage };
