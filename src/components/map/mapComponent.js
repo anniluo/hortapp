@@ -10,12 +10,13 @@ import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
 
 // TODO:
-// 1. close open popups when menubutton is clicked
-// 2. Disable interaction with existing markers when add marker-mode is on
-// 3. Close confirmation popup when confirm-button is clicked
+// 1. Disable interaction with existing markers when add marker-mode is on
+// 2. Close confirmation popup when confirm-button is clicked
+// 3.
 
 const LeafletMap = () => {
-  const markerRef = useRef(null);
+  const mapRef = useRef();
+  const markerRef = useRef();
 
   const [user, setUser] = useState(null);
 
@@ -45,6 +46,13 @@ const LeafletMap = () => {
     setUser(user);
   };
 
+  const closeLastOpenedPopup = () => {
+    const map = mapRef.current;
+    if (map != null) {
+      map.leafletElement.closePopup();
+    }
+  };
+
   const getResourceMarkers = async () => {
     try {
       const markers = await resourceMarkerService.getAll();
@@ -70,6 +78,7 @@ const LeafletMap = () => {
   };
 
   const onMenuButtonClick = () => {
+    closeLastOpenedPopup();
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -213,6 +222,7 @@ const LeafletMap = () => {
         zoom={13}
         zoomControl={false}
         onClick={getLatLngOnClick}
+        ref={mapRef}
       >
         <ZoomControl position='topright'></ZoomControl>
         <TileLayer
