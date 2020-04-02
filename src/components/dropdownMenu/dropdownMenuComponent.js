@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './dropdownMenuComponent.css';
-import natureResourcesService from '../../services/natureResources';
 
 const Dropdownmenu = ({
   dropdownMenuIsOpen,
@@ -8,23 +7,11 @@ const Dropdownmenu = ({
   handleResourceChange,
   chosenResource,
 }) => {
-  const [resources, setResources] = useState(['Mustikka', 'Mansikka', 'Omena']);
+  const [resources] = useState(['Mustikka', 'Mansikka', 'Omena']);
 
   useEffect(() => {
-    //getNatureResources();
     handleResourceChange(resources[0]);
   }, []);
-
-  const getNatureResources = async () => {
-    try {
-      const natureResources = await natureResourcesService.getAll();
-      console.log('resources on modal:', natureResources);
-      setResources(natureResources);
-      handleResourceChange(natureResources[0]);
-    } catch (error) {
-      console.log('Error occured while trying to fetch resources');
-    }
-  };
 
   return (
     <>

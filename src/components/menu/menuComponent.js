@@ -3,15 +3,13 @@ import Control from 'react-leaflet-control';
 import './menuComponent.css';
 import ModalToggle from '../modal/modalToggleComponent';
 import Modal from '../modal/modalComponent';
-
-// TODO
-// 1. Display the name of the user logged in
-// 2. Remove token when user logs out
+import userService from '../../services/users';
 
 const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) => {
   const handleLogout = (event) => {
     event.preventDefault();
-    console.log('logout-button clicked');
+    userService.clearLocalStorage('loggedHortappUser');
+    handleUserChange(null);
   };
 
   const renderMapFilter = () => {
