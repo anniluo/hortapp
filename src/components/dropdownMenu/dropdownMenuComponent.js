@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 import './dropdownMenuComponent.css';
 
-const Dropdownmenu = ({ resources }) => {
+const Dropdownmenu = ({ resources, handleResourceChange, chosenResource }) => {
   const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState('false');
-  const [chosenResource, setChosenResource] = useState('Choose a Resource');
 
   const showDropdownMenu = (event) => {
     event.preventDefault();
     setDropdownMenuIsOpen(!dropdownMenuIsOpen);
-  };
-
-  const handleResourceChange = (resource) => {
-    setChosenResource(resource);
-    setDropdownMenuIsOpen(false);
   };
 
   return (
@@ -26,8 +20,13 @@ const Dropdownmenu = ({ resources }) => {
       {dropdownMenuIsOpen && (
         <div className='dropdown-content'>
           {resources.map((resource) => (
-            <a key={resource} onClick={() => handleResourceChange(resource)}>
-              {resource}
+            <a
+              key={resource._id}
+              onClick={() => {
+                handleResourceChange(resource);
+              }}
+            >
+              {resource.name.en}
             </a>
           ))}
         </div>

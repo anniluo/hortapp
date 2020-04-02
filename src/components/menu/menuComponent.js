@@ -6,13 +6,12 @@ import Modal from '../modal/modalComponent';
 
 // TODO
 // 1. Display the name of the user logged in
+// 2. Remove token when user logs out
 
-const HortappMenu = ({ menuIsOpen, onMenuButtonClick, isLoggedIn }) => {
+const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) => {
   const handleLogout = (event) => {
     event.preventDefault();
     console.log('logout-button clicked');
-    // remove token
-    // set isloggedin to false
   };
 
   const renderMapFilter = () => {
@@ -38,12 +37,14 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick, isLoggedIn }) => {
           Menu
         </h5>
         <button onClick={onMenuButtonClick} className='menu-button menu-open-icon'></button>
-        <p>
-          Logged in as <b>Username</b>
-        </p>
+        {user && (
+          <p>
+            Logged in as <b>{user.username}</b>
+          </p>
+        )}
       </div>
       <div className='menu-contents'>
-        {!isLoggedIn ? (
+        {user === null ? (
           <>
             <ModalToggle
               toggle={(showModal) => (
@@ -56,6 +57,8 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick, isLoggedIn }) => {
                   modalHeaderText='Login to Hortapp'
                   hideModalOnClick={hideModal}
                   formId='login-form'
+                  user={user}
+                  handleUserChange={handleUserChange}
                 />
               )}
             />

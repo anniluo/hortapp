@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import loginService from '../../services/login';
 import signupService from '../../services/signup';
+import resourceMarkerService from '../../services/resourceMarkers';
+import userService from '../../services/users';
 import './modalComponent.css';
 
 // TODO
 // 1. Disable other interactions when modal is open
 // 2. onSuccess messages
 
-const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
+const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [user, setUser] = useState(null);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,13 +30,15 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
+    console.log('logging in with', username, password);
     try {
       const user = await loginService.login({ username, password });
 
-      setUser(user);
+      userService.setToLocalStorage('loggedHortappUser', user);
+      resourceMarkerService.setToken(user.token);
       setUsername('');
       setPassword('');
+      handleUserChange(user);
     } catch (error) {
       setErrorMessage('incorrect username or password');
       setTimeout(() => {
@@ -80,7 +83,6 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId }) => {
         <p className='error-message-text'>{errorMessage}</p>
       </div>
     ) : null;
-    // or errorMessage !== null && -render elements here-
   };
 
   return ReactDOM.createPortal(

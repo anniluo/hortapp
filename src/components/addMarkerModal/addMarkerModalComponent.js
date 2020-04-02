@@ -5,28 +5,31 @@ import '../modal/modalComponent.css';
 import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
 import natureResourcesService from '../../services/natureResources';
 
-// TODO:
-// 1. get chosen resource from dropdownmenu component
-// 2. get user from token
-// 3. get latitude and longtitude from map component
+// TODO
+// after successfully adding a new marker
+// exit add marker mode and center the map on the added marker
 
-const AddResourceModal = ({ hideModalOnClick }) => {
+const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [resources, setResources] = useState([]);
   const [locationName, setLocationName] = useState('');
   const [comment, setComment] = useState('');
+  const [chosenResource, setChosenResource] = useState('');
 
   useEffect(() => {
-    getNatureResources();
+    const natureResources = getNatureResources();
+    setResources(natureResources);
+    setChosenResource(natureResources[0]);
   }, []);
+
+  const handleResourceChange = (resource) => {
+    setChosenResource(resource);
+  };
 
   const getNatureResources = async () => {
     try {
       const natureResources = await natureResourcesService.getAll();
-      const resourceNames = natureResources.map((resource) => {
-        return resource.name.en;
-      });
-      setResources(resourceNames);
+      setResources(natureResources);
     } catch (error) {
       setErrorMessage('Error occured while trying to fetch resources');
       setTimeout(() => {
@@ -37,7 +40,7 @@ const AddResourceModal = ({ hideModalOnClick }) => {
 
   const handleAddMarker = (event) => {
     event.preventDefault();
-    console.log('creating a new marker with', locationName, comment);
+    console.log('creating a new marker with', locationName, comment, chosenLocation, user.username);
   };
 
   const renderErrorMessage = () => {
@@ -63,7 +66,11 @@ const AddResourceModal = ({ hideModalOnClick }) => {
           value={locationName}
           onChange={({ target }) => setLocationName(target.value)}
         />
-        <Dropdownmenu resources={resources} />
+        <Dropdownmenu
+          resources={resources}
+          handleResourceChange={handleResourceChange}
+          chosenResource={chosenResource}
+        />
         <label htmlFor='resource-comment' hidden>
           Comment:
         </label>
@@ -73,8 +80,8 @@ const AddResourceModal = ({ hideModalOnClick }) => {
           value={comment}
           onChange={({ target }) => setComment(target.value)}
         ></textarea>
+        <input className='modal-form-submit' type='submit' value='Confirm' />
       </form>
-      <input className='modal-form-submit' type='submit' value='Confirm' />
     </div>,
     document.getElementById('modal-root')
   );

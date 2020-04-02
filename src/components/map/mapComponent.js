@@ -4,10 +4,10 @@ import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
 import LeafletControlButton from '../button/buttonComponent';
 import HortappMenu from '../menu/menuComponent';
 import './mapComponent.css';
-import mockResourceMarkers from '../../utils/mockResourceMarker';
 import ModalToggle from '../modal/modalToggleComponent';
 import AddMarkerModal from '../addMarkerModal/addMarkerModalComponent';
 import resourceMarkerService from '../../services/resourceMarkers';
+import userService from '../../services/users';
 
 // TODO:
 // 1. close open popups when menubutton is clicked
@@ -16,44 +16,46 @@ import resourceMarkerService from '../../services/resourceMarkers';
 
 const LeafletMap = () => {
   const markerRef = useRef(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
+
+  const [user, setUser] = useState(null);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [circlePosition, setCirclePosition] = useState(null);
-  const [resourceMarkers, setResourceMarkers] = useState([]);
-  const [chosenLocation, setChosenLocation] = useState({ lat: null, long: null });
-  const [confirmedLocation, setConfirmedLocation] = useState({ lat: null, long: null });
   const [isAddMarkerModeOn, setIsAddMarkerModeOn] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [resourceMarkers, setResourceMarkers] = useState([]);
+
+  const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
+  const [circlePosition, setCirclePosition] = useState(null);
+  const [chosenLocation, setChosenLocation] = useState({ lat: null, long: null });
 
   useEffect(() => {
     console.log('first effect');
     getResourceMarkers();
-    setResourceMarkers(mockResourceMarkers);
   }, []);
+
+  useEffect(() => {
+    const loggedInUser = userService.getFromLocalStorage('loggedHortappUser');
+    if (loggedInUser) {
+      const user = JSON.parse(loggedInUser);
+      handleUserChange(user);
+      resourceMarkerService.setToken(user.token);
+    }
+  }, []);
+
+  const handleUserChange = (user) => {
+    setUser(user);
+  };
 
   const getResourceMarkers = async () => {
     try {
       const markers = await resourceMarkerService.getAll();
       setResourceMarkers(markers);
     } catch (error) {
-      setErrorMessage('Error occured while trying to fetch markers');
-
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
+      console.log('Error occured while trying to fetch markers');
+      return;
     }
   };
 
-  const onMenuButtonClick = () => {
-    setIsMenuOpen(!isMenuOpen);
-    // close possible opened popups
-  };
-
-  const enterAddMarkerMode = () => {
-    setIsAddMarkerModeOn(true);
-  };
-
+  /* event handlers*/
   const getDeviceLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -65,6 +67,14 @@ const LeafletMap = () => {
         console.log(error.message);
       }
     );
+  };
+
+  const onMenuButtonClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const enterAddMarkerMode = () => {
+    setIsAddMarkerModeOn(true);
   };
 
   const confirmationPopupToggle = () => {
@@ -92,23 +102,18 @@ const LeafletMap = () => {
     setIsAddMarkerModeOn(false);
   };
 
-  const handleLocationConfirmation = () => {
-    console.log('chosen location confirmed');
-    setConfirmedLocation(chosenLocation);
-    emptyChosenLocation();
-  };
-
   const emptyChosenLocation = () => {
     setChosenLocation({ lat: null, long: null });
   };
 
-  // renders
+  /* renders */
   const renderHortappMenu = () => {
     return !isAddMarkerModeOn ? (
       <HortappMenu
         onMenuButtonClick={onMenuButtonClick}
         menuIsOpen={isMenuOpen}
-        isLoggedIn={isLoggedIn}
+        user={user}
+        handleUserChange={handleUserChange}
       ></HortappMenu>
     ) : null;
   };
@@ -128,7 +133,7 @@ const LeafletMap = () => {
 
   const renderLeafletCircle = () => {
     return circlePosition === null ? null : (
-      <Circle center={mapPosition} radius={250} fillColor='blue'></Circle>
+      <Circle center={circlePosition} radius={250} fillColor='blue'></Circle>
     );
   };
 
@@ -154,7 +159,11 @@ const LeafletMap = () => {
                 </button>
               )}
               content={(hideModal) => (
-                <AddMarkerModal hideModalOnClick={hideModal}></AddMarkerModal>
+                <AddMarkerModal
+                  hideModalOnClick={hideModal}
+                  chosenLocation={chosenLocation}
+                  user={user}
+                ></AddMarkerModal>
               )}
             ></ModalToggle>
             <button className='confirm-modal-button' onClick={emptyChosenLocation}>
@@ -176,7 +185,7 @@ const LeafletMap = () => {
           buttonOnClick={getDeviceLocation}
         ></LeafletControlButton>
         {!isAddMarkerModeOn ? (
-          isLoggedIn ? (
+          user !== null ? (
             <LeafletControlButton
               buttonPosition='bottomright'
               toolTipText='Add a New Marker'
