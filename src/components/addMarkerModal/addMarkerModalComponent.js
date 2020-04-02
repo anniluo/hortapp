@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './addMarkerModalComponent.css';
 import '../modal/modalComponent.css';
 import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
-import natureResourcesService from '../../services/natureResources';
 
 // TODO
 // after successfully adding a new marker
@@ -11,31 +10,19 @@ import natureResourcesService from '../../services/natureResources';
 
 const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [resources, setResources] = useState([]);
+  const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState('false');
   const [locationName, setLocationName] = useState('');
   const [comment, setComment] = useState('');
   const [chosenResource, setChosenResource] = useState('');
 
-  useEffect(() => {
-    const natureResources = getNatureResources();
-    setResources(natureResources);
-    setChosenResource(natureResources[0]);
-  }, []);
-
   const handleResourceChange = (resource) => {
     setChosenResource(resource);
+    setDropdownMenuIsOpen(false);
   };
 
-  const getNatureResources = async () => {
-    try {
-      const natureResources = await natureResourcesService.getAll();
-      setResources(natureResources);
-    } catch (error) {
-      setErrorMessage('Error occured while trying to fetch resources');
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
-    }
+  const handleDropdownMenuToggle = (event) => {
+    event.preventDefault();
+    setDropdownMenuIsOpen(!dropdownMenuIsOpen);
   };
 
   const handleAddMarker = (event) => {
@@ -67,9 +54,10 @@ const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
           onChange={({ target }) => setLocationName(target.value)}
         />
         <Dropdownmenu
-          resources={resources}
           handleResourceChange={handleResourceChange}
           chosenResource={chosenResource}
+          dropdownMenuIsOpen={dropdownMenuIsOpen}
+          handleDropdownMenuToggle={handleDropdownMenuToggle}
         />
         <label htmlFor='resource-comment' hidden>
           Comment:
