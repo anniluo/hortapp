@@ -35,6 +35,7 @@ const LeafletMap = () => {
   }, []);
 
   useEffect(() => {
+    console.log('second effect');
     const loggedInUser = userService.getFromLocalStorage('loggedHortappUser');
     if (loggedInUser) {
       const user = JSON.parse(loggedInUser);
@@ -64,6 +65,17 @@ const LeafletMap = () => {
     }
   };
 
+  const removeMarkerClickEvents = () => {
+    console.log('removing marker click events');
+    const map = mapRef.current;
+    if (map != null) {
+      const markers = document.getElementsByClassName('leaflet-marker-icon');
+      for (let i = 0; markers.length > i; i++) {
+        markers[i].style.pointerEvents = 'none';
+      }
+    }
+  };
+
   /* event handlers*/
   const getDeviceLocation = () => {
     navigator.geolocation.getCurrentPosition(
@@ -85,6 +97,7 @@ const LeafletMap = () => {
 
   const enterAddMarkerMode = () => {
     setAddMarkerModeIsOn(true);
+    removeMarkerClickEvents();
   };
 
   const confirmationPopupToggle = () => {
