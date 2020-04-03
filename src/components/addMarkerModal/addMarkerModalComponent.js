@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './addMarkerModalComponent.css';
 import '../modal/modalComponent.css';
 import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
+import natureResourceService from '../../services/natureResources';
 
 const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState('false');
+  const [natureResources, setNatureResources] = useState(null);
+  const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState(false);
   const [locationName, setLocationName] = useState('');
   const [comment, setComment] = useState('');
   const [chosenResource, setChosenResource] = useState('');
 
-  const handleResourceChange = (resource) => {
-    setChosenResource(resource);
+  useEffect(() => {
+    getNatureResources();
+  }, []);
+
+  const getNatureResources = async () => {
+    try {
+      const resources = await natureResourceService.getAll();
+      setNatureResources(resources);
+    } catch (error) {
+      setErrorMessage('Error occured while trying to fetch resources');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
+  };
+
+  const handleResourceChange = (resourceName) => {
+    setChosenResource(resourceName);
     setDropdownMenuIsOpen(false);
   };
 
@@ -23,7 +41,14 @@ const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
 
   const handleAddMarker = (event) => {
     event.preventDefault();
-    console.log('creating a new marker with', locationName, comment, chosenLocation, user.username);
+    console.log(
+      'creating a new marker with',
+      locationName,
+      comment,
+      chosenLocation,
+      user.username,
+      chosenResource
+    );
   };
 
   const renderErrorMessage = () => {
@@ -50,10 +75,11 @@ const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
           onChange={({ target }) => setLocationName(target.value)}
         />
         <Dropdownmenu
-          handleResourceChange={handleResourceChange}
-          chosenResource={chosenResource}
           dropdownMenuIsOpen={dropdownMenuIsOpen}
+          handleResourceChange={handleResourceChange}
           handleDropdownMenuToggle={handleDropdownMenuToggle}
+          resources={natureResources}
+          chosenResource={chosenResource}
         />
         <label htmlFor='resource-comment' hidden>
           Comment:

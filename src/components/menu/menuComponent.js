@@ -5,13 +5,7 @@ import ModalToggle from '../modal/modalToggleComponent';
 import Modal from '../modal/modalComponent';
 import userService from '../../services/users';
 
-const HortappMenu = ({
-  menuIsOpen,
-  onMenuButtonClick,
-  user,
-  handleUserChange,
-  toggleModalBackground,
-}) => {
+const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) => {
   const handleLogout = (event) => {
     event.preventDefault();
     userService.clearLocalStorage('loggedHortappUser');
