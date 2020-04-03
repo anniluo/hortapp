@@ -6,10 +6,6 @@ import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
 import './modalComponent.css';
 
-// TODO
-// 1. Disable other interactions when modal is open
-// 2. onSuccess messages
-
 const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [username, setUsername] = useState('');
@@ -86,54 +82,56 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
   };
 
   return ReactDOM.createPortal(
-    <div className='modal-container'>
-      <div className='modal-header-container'>
-        <h5>{modalHeaderText}</h5>
-        <button className='close-modal-button no-border' onClick={hideModalOnClick}></button>
+    <>
+      <div className='modal-container'>
+        <div className='modal-header-container'>
+          <h5>{modalHeaderText}</h5>
+          <button className='close-modal-button no-border' onClick={hideModalOnClick}></button>
+        </div>
+        {formId !== '' ? (
+          <>
+            {renderErrorMessage()}
+            <form
+              id={formId}
+              className='modal-form'
+              onSubmit={formId === 'login-form' ? handleLogin : handleSignup}
+            >
+              <input
+                className={formId === 'login-form' ? 'hidden form-input' : 'form-input'}
+                type='email'
+                placeholder='e-mail'
+                value={email}
+                onChange={({ target }) => setEmail(target.value)}
+              />
+              <input
+                className='form-input'
+                type='text'
+                placeholder='username'
+                value={username}
+                onChange={({ target }) => setUsername(target.value)}
+              />
+              <input
+                className='form-input'
+                type='password'
+                placeholder='password'
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
+              <input
+                className={formId === 'login-form' ? 'hidden form-input' : 'form-input'}
+                type='password'
+                placeholder='confirm password'
+                value={confirmPassword}
+                onChange={({ target }) => setConfirmPassword(target.value)}
+              />
+              <input className='modal-form-submit' type='submit' value='Confirm' />
+            </form>
+          </>
+        ) : (
+          <div className='about-app-container'>Here I'll write a small description of the app</div>
+        )}
       </div>
-      {formId !== '' ? (
-        <>
-          {renderErrorMessage()}
-          <form
-            id={formId}
-            className='modal-form'
-            onSubmit={formId === 'login-form' ? handleLogin : handleSignup}
-          >
-            <input
-              className={formId === 'login-form' ? 'hidden form-input' : 'form-input'}
-              type='email'
-              placeholder='e-mail'
-              value={email}
-              onChange={({ target }) => setEmail(target.value)}
-            />
-            <input
-              className='form-input'
-              type='text'
-              placeholder='username'
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
-            />
-            <input
-              className='form-input'
-              type='password'
-              placeholder='password'
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
-            <input
-              className={formId === 'login-form' ? 'hidden form-input' : 'form-input'}
-              type='password'
-              placeholder='confirm password'
-              value={confirmPassword}
-              onChange={({ target }) => setConfirmPassword(target.value)}
-            />
-            <input className='modal-form-submit' type='submit' value='Confirm' />
-          </form>
-        </>
-      ) : (
-        <div className='about-app-container'>Here I'll write a small description of the app</div>
-      )}
-    </div>,
+    </>,
     document.getElementById('modal-root')
   );
 };

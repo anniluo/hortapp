@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import './addMarkerModalComponent.css';
 import '../modal/modalComponent.css';
 import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
-
-// TODO
-// after successfully adding a new marker
-// exit add marker mode and center the map on the added marker
 
 const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
   const [errorMessage, setErrorMessage] = useState(null);

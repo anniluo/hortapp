@@ -1,23 +1,29 @@
 import React from 'react';
 import { Popup } from 'react-leaflet';
 import './natureResourcePopup.css';
-import fruitsAndVegetableIcon from '../../assets/fruits-and-vegetables.png';
 
-const NatureResourcePopup = ({ mockMarker }) => {
+const NatureResourcePopup = ({ resourceMarker }) => {
   return (
     <Popup className='popup-container'>
       <div className='popup-header-container'>
-        <img className='resource-icon' src={fruitsAndVegetableIcon} alt='Icon for berries' />
-        <h5 id='nature-resource-name'>{mockMarker.natureResourceName} </h5>
+        <img
+          className='resource-icon'
+          src={resourceMarker.natureResource.iconUrl}
+          alt='Icon for resource'
+        />
+        <h5 id='nature-resource-name'>{resourceMarker.natureResource.name.en} </h5>
+        {/*harvest season */}
         <p id='date-user-info-text'>
-          Added by <b>Username</b> on <b>19/02/2020</b>
+          Added by <b>{resourceMarker.addedByUser.username}</b> on <b>{resourceMarker.date}</b>
         </p>
       </div>
       <div className='popup-info-container'>
         <p id='address-text'>
-          <b>Address</b> (lat: 60.192059, long:24.945831)
+          <b>{resourceMarker.locationName}</b>
+          <br></br>
+          {resourceMarker.latLng.latitude}, {resourceMarker.latLng.longitude}
         </p>
-        <p id='user-comment-text'>Comment from the user</p>
+        <p id='user-comment-text'>{resourceMarker.comment}</p>
       </div>
     </Popup>
   );
