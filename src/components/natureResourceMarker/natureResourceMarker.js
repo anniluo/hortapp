@@ -2,13 +2,14 @@ import React from 'react';
 import { Marker } from 'react-leaflet';
 import NatureResourcePopup from '../natureResourcePopup/natureResourcePopup';
 
-const NatureResourceMarker = ({ mockMarker }) => {
+const NatureResourceMarker = ({ marker }) => {
   return (
     <Marker
-      key={mockMarker.id}
-      position={[mockMarker.latLng.latitude, mockMarker.latLng.longitude]}
+      interactive={true}
+      key={marker.id}
+      position={[marker.latLng.latitude, marker.latLng.longitude]}
     >
-      <NatureResourcePopup mockMarker={mockMarker} />
+      <NatureResourcePopup resourceMarker={marker} />
     </Marker>
   );
 };

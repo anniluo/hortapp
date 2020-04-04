@@ -1,17 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './dropdownMenuComponent.css';
 
 const Dropdownmenu = ({
   dropdownMenuIsOpen,
   handleDropdownMenuToggle,
   handleResourceChange,
+  resources,
   chosenResource,
 }) => {
-  const [resources] = useState(['Mustikka', 'Mansikka', 'Omena']);
-
-  useEffect(() => {
-    handleResourceChange(resources[0]);
-  }, []);
+  const renderResourcesAnchors = () => {
+    return dropdownMenuIsOpen && resources
+      ? resources.map((resource) => (
+          <a
+            key={resource.id}
+            onClick={() => {
+              handleResourceChange(resource);
+            }}
+          >
+            {resource.name.en}
+          </a>
+        ))
+      : null;
+  };
 
   return (
     <>
@@ -19,22 +29,9 @@ const Dropdownmenu = ({
         <button className='dropdown-menu-button square-button' onClick={handleDropdownMenuToggle}>
           <i className='fa fa-caret-down'></i>
         </button>
-        <p className='dropdown-input'>{chosenResource}</p>
+        <p className='dropdown-input'>{chosenResource.name}</p>
       </div>
-      {dropdownMenuIsOpen && (
-        <div className='dropdown-content'>
-          {resources.map((resource) => (
-            <a
-              key={resource}
-              onClick={() => {
-                handleResourceChange(resource);
-              }}
-            >
-              {resource}
-            </a>
-          ))}
-        </div>
-      )}
+      <div className='dropdown-content'>{renderResourcesAnchors()}</div>
     </>
   );
 };

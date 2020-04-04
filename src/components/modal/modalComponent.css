@@ -9,7 +9,8 @@
   border-radius: 2em;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: #ffffff;
-  z-index: 1000;
+  z-index: 1001;
+  opacity: 100%;
 }
 
 .modal-header-container {
@@ -26,6 +27,10 @@
 
 .modal-error-container p {
   color: #8b0000;
+}
+
+.modal-success-container p {
+  color: #008000;
 }
 
 #modal-error-container #login-button {

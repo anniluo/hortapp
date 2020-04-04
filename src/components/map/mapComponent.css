@@ -12,3 +12,16 @@
   color: #252525;
   margin: 0.7em;
 }
+
+#modal-background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  background-color: #0246a2;
+  opacity: 60%;
+}
+
+.hidden-modal-background {
+  display: none;
+}

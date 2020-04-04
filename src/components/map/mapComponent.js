@@ -10,9 +10,10 @@ import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
 
 // TODO:
-// 1. Disable interaction with existing markers when add marker-mode is on
-// 2. Close confirmation popup when confirm-button is clicked
-// 3.
+// 1. after successfully adding a new marker exit add marker mode
+// and center the map on the added marker
+// 2. on signup success functionality
+// 3. login success functionality
 
 const LeafletMap = () => {
   const mapRef = useRef();
@@ -20,8 +21,8 @@ const LeafletMap = () => {
 
   const [user, setUser] = useState(null);
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAddMarkerModeOn, setIsAddMarkerModeOn] = useState(false);
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [addMarkerModeIsOn, setAddMarkerModeIsOn] = useState(false);
   const [resourceMarkers, setResourceMarkers] = useState([]);
 
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
@@ -34,6 +35,7 @@ const LeafletMap = () => {
   }, []);
 
   useEffect(() => {
+    console.log('second effect');
     const loggedInUser = userService.getFromLocalStorage('loggedHortappUser');
     if (loggedInUser) {
       const user = JSON.parse(loggedInUser);
@@ -63,7 +65,18 @@ const LeafletMap = () => {
     }
   };
 
-  /* event handlers*/
+  const toggleMarkerPointerEvents = () => {
+    const map = mapRef.current;
+    if (map != null) {
+      const markers = document.getElementsByClassName('leaflet-marker-icon');
+      for (let i = 0; markers.length > i; i++) {
+        addMarkerModeIsOn
+          ? (markers[i].style.pointerEvents = 'auto')
+          : (markers[i].style.pointerEvents = 'none');
+      }
+    }
+  };
+
   const getDeviceLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -79,15 +92,22 @@ const LeafletMap = () => {
 
   const onMenuButtonClick = () => {
     closeLastOpenedPopup();
-    setIsMenuOpen(!isMenuOpen);
+    setMenuIsOpen(!menuIsOpen);
   };
 
-  const enterAddMarkerMode = () => {
-    setIsAddMarkerModeOn(true);
+  const handleAddMarkerModeChange = () => {
+    if (addMarkerModeIsOn) {
+      emptyChosenLocation();
+      toggleMarkerPointerEvents();
+      setAddMarkerModeIsOn(false);
+    } else {
+      toggleMarkerPointerEvents();
+      setAddMarkerModeIsOn(true);
+    }
   };
 
   const confirmationPopupToggle = () => {
-    if (isAddMarkerModeOn) {
+    if (addMarkerModeIsOn) {
       if (document.getElementsByClassName('leaflet-popup-content-wrapper').length === 0) {
         const marker = markerRef.current;
         if (marker != null) {
@@ -98,17 +118,12 @@ const LeafletMap = () => {
   };
 
   const getLatLngOnClick = (event) => {
-    if (isAddMarkerModeOn) {
+    if (addMarkerModeIsOn) {
       console.log(event.latlng.lat, event.latlng.lng);
       setChosenLocation({ lat: event.latlng.lat, long: event.latlng.lng });
       setMapPosition([event.latlng.lat, event.latlng.lng]);
       confirmationPopupToggle();
     }
-  };
-
-  const handleSelectionModeCancel = () => {
-    emptyChosenLocation();
-    setIsAddMarkerModeOn(false);
   };
 
   const emptyChosenLocation = () => {
@@ -117,10 +132,10 @@ const LeafletMap = () => {
 
   /* renders */
   const renderHortappMenu = () => {
-    return !isAddMarkerModeOn ? (
+    return !addMarkerModeIsOn ? (
       <HortappMenu
         onMenuButtonClick={onMenuButtonClick}
-        menuIsOpen={isMenuOpen}
+        menuIsOpen={menuIsOpen}
         user={user}
         handleUserChange={handleUserChange}
       ></HortappMenu>
@@ -132,7 +147,7 @@ const LeafletMap = () => {
       return resourceMarkers.map((resourceMarker) => (
         <NatureResourceMarker
           key={resourceMarker.id}
-          mockMarker={resourceMarker}
+          marker={resourceMarker}
         ></NatureResourceMarker>
       ));
     } else {
@@ -147,7 +162,7 @@ const LeafletMap = () => {
   };
 
   const renderLeafletPopup = () => {
-    return chosenLocation.lat == null ? null : (
+    return chosenLocation.lat === null ? null : (
       <Marker ref={markerRef} position={[chosenLocation.lat, chosenLocation.long]}>
         <Popup autoPan={false} closeButton={false} closeOnClick={false}>
           <div className='modal-header-container'>
@@ -167,13 +182,18 @@ const LeafletMap = () => {
                   Confirm
                 </button>
               )}
-              content={(hideModal) => (
-                <AddMarkerModal
-                  hideModalOnClick={hideModal}
-                  chosenLocation={chosenLocation}
-                  user={user}
-                ></AddMarkerModal>
-              )}
+              content={(hideModal) => {
+                closeLastOpenedPopup();
+                return (
+                  <AddMarkerModal
+                    hideModalOnClick={hideModal}
+                    chosenLocation={chosenLocation}
+                    user={user}
+                    updateMarkers={getResourceMarkers}
+                    handleAddMarkerModeChange={handleAddMarkerModeChange}
+                  ></AddMarkerModal>
+                );
+              }}
             ></ModalToggle>
             <button className='confirm-modal-button' onClick={emptyChosenLocation}>
               Cancel
@@ -193,13 +213,13 @@ const LeafletMap = () => {
           buttonId='location-round-button'
           buttonOnClick={getDeviceLocation}
         ></LeafletControlButton>
-        {!isAddMarkerModeOn ? (
+        {!addMarkerModeIsOn ? (
           user !== null ? (
             <LeafletControlButton
               buttonPosition='bottomright'
               toolTipText='Add a New Marker'
               buttonId='add-round-button'
-              buttonOnClick={enterAddMarkerMode}
+              buttonOnClick={handleAddMarkerModeChange}
             ></LeafletControlButton>
           ) : null
         ) : (
@@ -207,7 +227,7 @@ const LeafletMap = () => {
             buttonPosition='bottomright'
             toolTipText='Cancel and go back to map view'
             buttonId='cancel-round-button'
-            buttonOnClick={handleSelectionModeCancel}
+            buttonOnClick={handleAddMarkerModeChange}
           ></LeafletControlButton>
         )}
       </>
@@ -216,6 +236,7 @@ const LeafletMap = () => {
 
   return (
     <>
+      <div id='modal-background' className='hidden-modal-background'></div>
       <Map
         id='hortapp-map'
         center={mapPosition}
@@ -223,6 +244,7 @@ const LeafletMap = () => {
         zoomControl={false}
         onClick={getLatLngOnClick}
         ref={mapRef}
+        interactive={false}
       >
         <ZoomControl position='topright'></ZoomControl>
         <TileLayer

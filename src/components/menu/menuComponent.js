@@ -17,12 +17,14 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) 
       <div className='filter-container'>
         <p>Filter</p>
         <div className='filter-options-container'>
-          <input type='radio' id='option1' value='Option 1' />
-          <label htmlFor='option1'>Option 1</label>
-          <input type='radio' id='option2' value='Option 2' />
-          <label htmlFor='option2'>Option 2</label>
-          <input type='radio' id='option2' value='Option 3' />
-          <label htmlFor='option3'>Option 3</label>
+          <input type='radio' id='my-markers-filter' value='my-markers' />
+          <label htmlFor='my-markers'>My markers</label>
+          <input type='radio' id='berries-filter' value='berries' />
+          <label htmlFor='berries'>Berries</label>
+          <input type='radio' id='mushrooms-filter' value='mushrooms' />
+          <label htmlFor='mushrooms'>Mushrooms</label>
+          <input type='radio' id='greens-filter' value='greens' />
+          <label htmlFor='greens'>Greens</label>
         </div>
       </div>
     );

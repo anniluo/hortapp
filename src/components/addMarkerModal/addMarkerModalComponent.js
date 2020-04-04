@@ -3,20 +3,41 @@ import ReactDOM from 'react-dom';
 import './addMarkerModalComponent.css';
 import '../modal/modalComponent.css';
 import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
+import natureResourceService from '../../services/natureResources';
+import resourceMarkerService from '../../services/resourceMarkers';
 
-// TODO
-// after successfully adding a new marker
-// exit add marker mode and center the map on the added marker
-
-const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
+const AddResourceModal = ({
+  hideModalOnClick,
+  chosenLocation,
+  user,
+  updateMarkers,
+  handleAddMarkerModeChange,
+}) => {
   const [errorMessage, setErrorMessage] = useState(null);
-  const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState('false');
+  const [natureResources, setNatureResources] = useState(null);
+  const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState(false);
   const [locationName, setLocationName] = useState('');
   const [comment, setComment] = useState('');
-  const [chosenResource, setChosenResource] = useState('');
+  const [chosenResource, setChosenResource] = useState({ name: '', id: '' });
+
+  useEffect(() => {
+    getNatureResources();
+  }, []);
+
+  const getNatureResources = async () => {
+    try {
+      const resources = await natureResourceService.getAll();
+      setNatureResources(resources);
+    } catch (error) {
+      setErrorMessage('Error occured while trying to fetch resources');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
+  };
 
   const handleResourceChange = (resource) => {
-    setChosenResource(resource);
+    setChosenResource({ name: resource.name.en, id: resource.id });
     setDropdownMenuIsOpen(false);
   };
 
@@ -25,9 +46,39 @@ const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
     setDropdownMenuIsOpen(!dropdownMenuIsOpen);
   };
 
-  const handleAddMarker = (event) => {
+  const handleAddMarker = async (event) => {
     event.preventDefault();
-    console.log('creating a new marker with', locationName, comment, chosenLocation, user.username);
+
+    if (locationName !== '' || chosenResource.id !== '') {
+      try {
+        await resourceMarkerService.create({
+          latLng: { latitude: chosenLocation.lat, longitude: chosenLocation.long },
+          locationName: locationName,
+          date: Date.now(),
+          userId: user.id,
+          comment: comment,
+          natureResource: chosenResource.id,
+        });
+
+        setLocationName('');
+        handleResourceChange(natureResources[0]);
+        setComment('');
+        updateMarkers();
+        hideModalOnClick();
+        handleAddMarkerModeChange();
+      } catch (error) {
+        setErrorMessage('an error occured when trying to create a new marker', error);
+        console.log(error);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+      }
+    } else {
+      setErrorMessage('Invalid address and/or resource');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
   };
 
   const renderErrorMessage = () => {
@@ -54,10 +105,11 @@ const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
           onChange={({ target }) => setLocationName(target.value)}
         />
         <Dropdownmenu
-          handleResourceChange={handleResourceChange}
-          chosenResource={chosenResource}
           dropdownMenuIsOpen={dropdownMenuIsOpen}
+          handleResourceChange={handleResourceChange}
           handleDropdownMenuToggle={handleDropdownMenuToggle}
+          resources={natureResources}
+          chosenResource={chosenResource}
         />
         <label htmlFor='resource-comment' hidden>
           Comment:
