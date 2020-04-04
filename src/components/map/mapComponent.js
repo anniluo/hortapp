@@ -10,9 +10,10 @@ import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
 
 // TODO:
-// 1. Close confirmation popup when confirm-button is clicked
-// 2. after successfully adding a new marker exit add marker mode
+// 1. after successfully adding a new marker exit add marker mode
 // and center the map on the added marker
+// 2. on signup success functionality
+// 3. login success functionality
 
 const LeafletMap = () => {
   const mapRef = useRef();
@@ -65,7 +66,6 @@ const LeafletMap = () => {
   };
 
   const toggleMarkerPointerEvents = () => {
-    console.log('removing marker click events');
     const map = mapRef.current;
     if (map != null) {
       const markers = document.getElementsByClassName('leaflet-marker-icon');
@@ -77,7 +77,6 @@ const LeafletMap = () => {
     }
   };
 
-  /* event handlers*/
   const getDeviceLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -235,7 +234,7 @@ const LeafletMap = () => {
 
   return (
     <>
-      <div id='modal-background'></div>
+      <div id='modal-background' className='hidden-modal-background'></div>
       <Map
         id='hortapp-map'
         center={mapPosition}

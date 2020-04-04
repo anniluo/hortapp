@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './dropdownMenuComponent.css';
 
 const Dropdownmenu = ({
@@ -14,7 +14,7 @@ const Dropdownmenu = ({
           <a
             key={resource.id}
             onClick={() => {
-              handleResourceChange(resource.name.en);
+              handleResourceChange(resource);
             }}
           >
             {resource.name.en}
@@ -29,7 +29,7 @@ const Dropdownmenu = ({
         <button className='dropdown-menu-button square-button' onClick={handleDropdownMenuToggle}>
           <i className='fa fa-caret-down'></i>
         </button>
-        <p className='dropdown-input'>{chosenResource}</p>
+        <p className='dropdown-input'>{chosenResource.name}</p>
       </div>
       <div className='dropdown-content'>{renderResourcesAnchors()}</div>
     </>

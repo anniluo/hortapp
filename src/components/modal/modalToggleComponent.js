@@ -16,11 +16,9 @@ const ModalToggle = ({ toggle, content }) => {
   const toggleModalBackground = () => {
     const modalBackground = document.getElementById('modal-background');
 
-    if (modalBackground.style.display === '' || modalBackground.style.display === 'none') {
-      modalBackground.style.display = 'inherit';
-    } else {
-      modalBackground.style.display = 'none';
-    }
+    modalBackground.classList.contains('hidden-modal-background')
+      ? modalBackground.classList.remove('hidden-modal-background')
+      : modalBackground.classList.add('hidden-modal-background');
   };
 
   return (

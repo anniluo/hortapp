@@ -20,5 +20,8 @@
   z-index: 1001;
   background-color: #0246a2;
   opacity: 60%;
+}
+
+.hidden-modal-background {
   display: none;
 }
