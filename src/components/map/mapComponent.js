@@ -95,9 +95,15 @@ const LeafletMap = () => {
     setMenuIsOpen(!menuIsOpen);
   };
 
-  const enterAddMarkerMode = () => {
-    toggleMarkerPointerEvents();
-    setAddMarkerModeIsOn(true);
+  const handleAddMarkerModeChange = () => {
+    if (addMarkerModeIsOn) {
+      emptyChosenLocation();
+      toggleMarkerPointerEvents();
+      setAddMarkerModeIsOn(false);
+    } else {
+      toggleMarkerPointerEvents();
+      setAddMarkerModeIsOn(true);
+    }
   };
 
   const confirmationPopupToggle = () => {
@@ -118,12 +124,6 @@ const LeafletMap = () => {
       setMapPosition([event.latlng.lat, event.latlng.lng]);
       confirmationPopupToggle();
     }
-  };
-
-  const exitAddMarkerMode = () => {
-    emptyChosenLocation();
-    toggleMarkerPointerEvents();
-    setAddMarkerModeIsOn(false);
   };
 
   const emptyChosenLocation = () => {
@@ -189,6 +189,8 @@ const LeafletMap = () => {
                     hideModalOnClick={hideModal}
                     chosenLocation={chosenLocation}
                     user={user}
+                    updateMarkers={getResourceMarkers}
+                    handleAddMarkerModeChange={handleAddMarkerModeChange}
                   ></AddMarkerModal>
                 );
               }}
@@ -217,7 +219,7 @@ const LeafletMap = () => {
               buttonPosition='bottomright'
               toolTipText='Add a New Marker'
               buttonId='add-round-button'
-              buttonOnClick={enterAddMarkerMode}
+              buttonOnClick={handleAddMarkerModeChange}
             ></LeafletControlButton>
           ) : null
         ) : (
@@ -225,7 +227,7 @@ const LeafletMap = () => {
             buttonPosition='bottomright'
             toolTipText='Cancel and go back to map view'
             buttonId='cancel-round-button'
-            buttonOnClick={exitAddMarkerMode}
+            buttonOnClick={handleAddMarkerModeChange}
           ></LeafletControlButton>
         )}
       </>

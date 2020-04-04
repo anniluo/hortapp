@@ -6,7 +6,13 @@ import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
 import natureResourceService from '../../services/natureResources';
 import resourceMarkerService from '../../services/resourceMarkers';
 
-const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
+const AddResourceModal = ({
+  hideModalOnClick,
+  chosenLocation,
+  user,
+  updateMarkers,
+  handleAddMarkerModeChange,
+}) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [natureResources, setNatureResources] = useState(null);
   const [dropdownMenuIsOpen, setDropdownMenuIsOpen] = useState(false);
@@ -57,6 +63,9 @@ const AddResourceModal = ({ hideModalOnClick, chosenLocation, user }) => {
         setLocationName('');
         handleResourceChange(natureResources[0]);
         setComment('');
+        updateMarkers();
+        hideModalOnClick();
+        handleAddMarkerModeChange();
       } catch (error) {
         setErrorMessage('an error occured when trying to create a new marker', error);
         console.log(error);

@@ -29,6 +29,10 @@
   color: #8b0000;
 }
 
+.modal-success-container p {
+  color: #008000;
+}
+
 #modal-error-container #login-button {
   grid-column: 1/2;
   grid-row: 1/1;

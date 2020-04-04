@@ -8,6 +8,7 @@ import './modalComponent.css';
 
 const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) => {
   const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -32,6 +33,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       resourceMarkerService.setToken(user.token);
       setUsername('');
       setPassword('');
+      hideModalOnClick();
       handleUserChange(user);
     } catch (error) {
       setErrorMessage('incorrect username or password');
@@ -56,12 +58,13 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
         setUsername('');
         setPassword('');
         setConfirmPassword('');
+        setSuccessMessage('Account created succesfully!');
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 10000);
       } catch (error) {
         setErrorMessage('an error occured while trying to create a user');
         console.log(error);
-        setTimeout(() => {
-          setErrorMessage(null);
-        }, 5000);
       }
     } else {
       setErrorMessage('Your password and confirmation password do not match.');
@@ -79,6 +82,14 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
     ) : null;
   };
 
+  const renderSuccessMessage = () => {
+    return successMessage !== null ? (
+      <div className='modal-success-container'>
+        <p className='success-message-text'>{successMessage}</p>
+      </div>
+    ) : null;
+  };
+
   return ReactDOM.createPortal(
     <>
       <div className='modal-container'>
@@ -88,6 +99,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
         </div>
         {formId !== '' ? (
           <>
+            {renderSuccessMessage()}
             {renderErrorMessage()}
             <form
               id={formId}
