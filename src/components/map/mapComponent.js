@@ -10,10 +10,7 @@ import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
 
 // TODO:
-// 1. after successfully adding a new marker exit add marker mode
-// and center the map on the added marker
-// 2. on signup success functionality
-// 3. login success functionality
+// Filtering
 
 const LeafletMap = () => {
   const mapRef = useRef();
