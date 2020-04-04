@@ -10,9 +10,8 @@ import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
 
 // TODO:
-// 1. Disable interaction with existing markers when add marker-mode is on
-// 2. Close confirmation popup when confirm-button is clicked
-// 3. after successfully adding a new marker exit add marker mode
+// 1. Close confirmation popup when confirm-button is clicked
+// 2. after successfully adding a new marker exit add marker mode
 // and center the map on the added marker
 
 const LeafletMap = () => {
@@ -65,13 +64,15 @@ const LeafletMap = () => {
     }
   };
 
-  const removeMarkerClickEvents = () => {
+  const toggleMarkerPointerEvents = () => {
     console.log('removing marker click events');
     const map = mapRef.current;
     if (map != null) {
       const markers = document.getElementsByClassName('leaflet-marker-icon');
       for (let i = 0; markers.length > i; i++) {
-        markers[i].style.pointerEvents = 'none';
+        addMarkerModeIsOn
+          ? (markers[i].style.pointerEvents = 'auto')
+          : (markers[i].style.pointerEvents = 'none');
       }
     }
   };
@@ -96,8 +97,8 @@ const LeafletMap = () => {
   };
 
   const enterAddMarkerMode = () => {
+    toggleMarkerPointerEvents();
     setAddMarkerModeIsOn(true);
-    removeMarkerClickEvents();
   };
 
   const confirmationPopupToggle = () => {
@@ -122,6 +123,7 @@ const LeafletMap = () => {
 
   const exitAddMarkerMode = () => {
     emptyChosenLocation();
+    toggleMarkerPointerEvents();
     setAddMarkerModeIsOn(false);
   };
 
