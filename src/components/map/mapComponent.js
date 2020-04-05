@@ -161,10 +161,11 @@ const LeafletMap = () => {
 
   const renderNatureResourceMarkers = () => {
     if (resourceMarkers) {
-      return resourceMarkers.map((resourceMarker) => (
+      return resourceMarkers.map((marker) => (
         <NatureResourceMarker
-          key={resourceMarker.id}
-          marker={resourceMarker}
+          key={marker.id}
+          marker={marker}
+          selectedFilterOptions={selectedFilterOptions}
         ></NatureResourceMarker>
       ));
     } else {
