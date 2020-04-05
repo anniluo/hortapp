@@ -5,7 +5,14 @@ import ModalToggle from '../modal/modalToggleComponent';
 import Modal from '../modal/modalComponent';
 import userService from '../../services/users';
 
-const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) => {
+const HortappMenu = ({
+  menuIsOpen,
+  onMenuButtonClick,
+  user,
+  handleUserChange,
+  selectedFilterOptions,
+  handleFilterOptionsChange,
+}) => {
   const handleLogout = (event) => {
     event.preventDefault();
     userService.clearLocalStorage('loggedHortappUser');
@@ -15,15 +22,47 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) 
   const renderMapFilter = () => {
     return (
       <div className='filter-container'>
-        <p>Filter</p>
+        <p>Filter Options</p>
         <div className='filter-options-container'>
-          <input type='radio' id='my-markers-filter' value='my-markers' />
-          <label htmlFor='my-markers'>My markers</label>
-          <input type='radio' id='berries-filter' value='berries' />
+          {user !== null ? (
+            <>
+              <input
+                type='checkbox'
+                name='my-markers'
+                id='my-markers-filter'
+                value='myMarkers'
+                onChange={(event) => handleFilterOptionsChange(event.target.value)}
+                checked={selectedFilterOptions.includes('myMarkers')}
+              />
+              <label htmlFor='my-markers'>My markers</label>
+            </>
+          ) : null}
+          <input
+            type='checkbox'
+            name='berries'
+            id='berries-filter'
+            value='berries'
+            onChange={(event) => handleFilterOptionsChange(event.target.value)}
+            checked={selectedFilterOptions.includes('berries')}
+          />
           <label htmlFor='berries'>Berries</label>
-          <input type='radio' id='mushrooms-filter' value='mushrooms' />
+          <input
+            type='checkbox'
+            name='mushrooms'
+            id='mushrooms-filter'
+            value='mushrooms'
+            onChange={(event) => handleFilterOptionsChange(event.target.value)}
+            checked={selectedFilterOptions.includes('mushrooms')}
+          />
           <label htmlFor='mushrooms'>Mushrooms</label>
-          <input type='radio' id='greens-filter' value='greens' />
+          <input
+            type='checkbox'
+            name='greens'
+            id='greens-filter'
+            value='greens'
+            onChange={(event) => handleFilterOptionsChange(event.target.value)}
+            checked={selectedFilterOptions.includes('greens')}
+          />
           <label htmlFor='greens'>Greens</label>
         </div>
       </div>
