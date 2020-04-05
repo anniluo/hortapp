@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Map, TileLayer, ZoomControl, Circle, Popup, Marker } from 'react-leaflet';
+import { Map, TileLayer, LayerGroup, ZoomControl, Circle, Popup, Marker } from 'react-leaflet';
 import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
 import LeafletControlButton from '../button/buttonComponent';
 import HortappMenu from '../menu/menuComponent';
@@ -21,6 +21,15 @@ const LeafletMap = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [addMarkerModeIsOn, setAddMarkerModeIsOn] = useState(false);
   const [resourceMarkers, setResourceMarkers] = useState([]);
+  const mapMaxBounds = useState([
+    [70.117959, 28.005301],
+    [59.944007, 19.387601],
+  ]);
+  const [selectedFilterOptions, setSelectedFilterOptions] = useState([
+    'berries',
+    'mushrooms',
+    'greens',
+  ]);
 
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
   const [circlePosition, setCirclePosition] = useState(null);
@@ -40,6 +49,15 @@ const LeafletMap = () => {
       resourceMarkerService.setToken(user.token);
     }
   }, []);
+
+  const handleFilterOptionsChange = (newFilter) => {
+    if (selectedFilterOptions.includes(newFilter)) {
+      const updatedOptions = selectedFilterOptions.filter((option) => option !== newFilter);
+      setSelectedFilterOptions(updatedOptions);
+    } else {
+      setSelectedFilterOptions(selectedFilterOptions.concat(newFilter));
+    }
+  };
 
   const handleUserChange = (user) => {
     setUser(user);
@@ -135,6 +153,8 @@ const LeafletMap = () => {
         menuIsOpen={menuIsOpen}
         user={user}
         handleUserChange={handleUserChange}
+        selectedFilterOptions={selectedFilterOptions}
+        handleFilterOptionsChange={handleFilterOptionsChange}
       ></HortappMenu>
     ) : null;
   };
@@ -241,7 +261,7 @@ const LeafletMap = () => {
         zoomControl={false}
         onClick={getLatLngOnClick}
         ref={mapRef}
-        interactive={false}
+        maxBounds={mapMaxBounds}
       >
         <ZoomControl position='topright'></ZoomControl>
         <TileLayer
@@ -249,7 +269,7 @@ const LeafletMap = () => {
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
         {renderLeafletControlButtons()}
-        {renderNatureResourceMarkers()}
+        <LayerGroup>{renderNatureResourceMarkers()}</LayerGroup>
         {renderHortappMenu()}
         {renderLeafletPopup()}
         {renderLeafletCircle()}

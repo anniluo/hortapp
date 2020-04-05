@@ -1,32 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Control from 'react-leaflet-control';
 import './menuComponent.css';
 import ModalToggle from '../modal/modalToggleComponent';
 import Modal from '../modal/modalComponent';
 import userService from '../../services/users';
 
-const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) => {
-  const [selectedFilterOptions, setSelectedFilterOptions] = useState([
-    'berries',
-    'mushrooms',
-    'greens',
-  ]);
-
+const HortappMenu = ({
+  menuIsOpen,
+  onMenuButtonClick,
+  user,
+  handleUserChange,
+  selectedFilterOptions,
+  handleFilterOptionsChange,
+}) => {
   const handleLogout = (event) => {
     event.preventDefault();
     userService.clearLocalStorage('loggedHortappUser');
     handleUserChange(null);
-  };
-
-  const handleFilterOptionsChange = (event) => {
-    if (selectedFilterOptions.includes(event.target.value)) {
-      const updatedOptions = selectedFilterOptions.filter(
-        (option) => option !== event.target.value
-      );
-      setSelectedFilterOptions(updatedOptions);
-    } else {
-      setSelectedFilterOptions(selectedFilterOptions.concat(event.target.value));
-    }
   };
 
   const renderMapFilter = () => {
@@ -41,7 +31,7 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) 
                 name='my-markers'
                 id='my-markers-filter'
                 value='myMarkers'
-                onChange={handleFilterOptionsChange}
+                onChange={(event) => handleFilterOptionsChange(event.target.value)}
                 checked={selectedFilterOptions.includes('myMarkers')}
               />
               <label htmlFor='my-markers'>My markers</label>
@@ -52,7 +42,7 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) 
             name='berries'
             id='berries-filter'
             value='berries'
-            onChange={handleFilterOptionsChange}
+            onChange={(event) => handleFilterOptionsChange(event.target.value)}
             checked={selectedFilterOptions.includes('berries')}
           />
           <label htmlFor='berries'>Berries</label>
@@ -61,7 +51,7 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) 
             name='mushrooms'
             id='mushrooms-filter'
             value='mushrooms'
-            onChange={handleFilterOptionsChange}
+            onChange={(event) => handleFilterOptionsChange(event.target.value)}
             checked={selectedFilterOptions.includes('mushrooms')}
           />
           <label htmlFor='mushrooms'>Mushrooms</label>
@@ -70,7 +60,7 @@ const HortappMenu = ({ menuIsOpen, onMenuButtonClick, user, handleUserChange }) 
             name='greens'
             id='greens-filter'
             value='greens'
-            onChange={handleFilterOptionsChange}
+            onChange={(event) => handleFilterOptionsChange(event.target.value)}
             checked={selectedFilterOptions.includes('greens')}
           />
           <label htmlFor='greens'>Greens</label>
