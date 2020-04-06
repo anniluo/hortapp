@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Map, TileLayer, ZoomControl, Circle, Popup, Marker } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, Popup, Marker } from 'react-leaflet';
 import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
 import LeafletControlButton from '../button/buttonComponent';
 import HortappMenu from '../menu/menuComponent';
@@ -8,9 +8,6 @@ import ModalToggle from '../modal/modalToggleComponent';
 import AddMarkerModal from '../addMarkerModal/addMarkerModalComponent';
 import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
-
-// TODO:
-// Filtering
 
 const LeafletMap = () => {
   const mapRef = useRef();
@@ -35,12 +32,10 @@ const LeafletMap = () => {
   const [chosenLocation, setChosenLocation] = useState({ lat: null, long: null });
 
   useEffect(() => {
-    console.log('first effect');
     getResourceMarkers();
   }, []);
 
   useEffect(() => {
-    console.log('second effect');
     const loggedInUser = userService.getFromLocalStorage('loggedHortappUser');
     if (loggedInUser) {
       const user = JSON.parse(loggedInUser);
@@ -95,6 +90,7 @@ const LeafletMap = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setMapPosition([position.coords.latitude, position.coords.longitude]);
+        // get current zoom level
       },
       (error) => {
         console.log(error.message);
@@ -140,7 +136,6 @@ const LeafletMap = () => {
     setChosenLocation({ lat: null, long: null });
   };
 
-  /* renders */
   const renderHortappMenu = () => {
     return !addMarkerModeIsOn ? (
       <HortappMenu
@@ -244,6 +239,11 @@ const LeafletMap = () => {
 
   return (
     <>
+      {addMarkerModeIsOn && (
+        <div id='add-mode-container'>
+          <p>Choose a Location</p>
+        </div>
+      )}
       <div id='modal-background' className='hidden-modal-background'></div>
       <Map
         id='hortapp-map'

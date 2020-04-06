@@ -1,4 +1,5 @@
 const handleError = (error) => {
+  console.log('incoming error:', error);
   let errors = [];
   switch (error.message) {
     case 'Network Error':
