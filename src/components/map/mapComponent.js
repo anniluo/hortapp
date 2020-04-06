@@ -166,7 +166,7 @@ const LeafletMap = () => {
           key={marker.id}
           marker={marker}
           selectedFilterOptions={selectedFilterOptions}
-          userId={user.id}
+          userId={user ? user.id : null}
         ></NatureResourceMarker>
       ));
     } else {
