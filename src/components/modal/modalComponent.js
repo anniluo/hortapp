@@ -27,6 +27,15 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
 
   const handleLogin = async (event) => {
     event.preventDefault();
+
+    if (username === '' || password === '') {
+      setErrorMessage('Username and Password are required');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return;
+    }
+
     try {
       const user = await loginService.login({ username, password });
       userService.setToLocalStorage('loggedHortappUser', user);
@@ -36,7 +45,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       hideModalOnClick();
       handleUserChange(user);
     } catch (error) {
-      setErrorMessage('incorrect username or password');
+      setErrorMessage('Incorrect username or password');
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -46,28 +55,49 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
   const handleSignup = async (event) => {
     event.preventDefault();
 
-    if (confirmPassword === password) {
-      try {
-        await signupService.signup({
-          email: email,
-          username: username,
-          password: password,
-        });
+    if (email === '' || username === '' || password === '') {
+      setErrorMessage('Email, Username and Password are required');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return;
+    }
 
-        setEmail('');
-        setUsername('');
-        setPassword('');
-        setConfirmPassword('');
-        setSuccessMessage('Account created succesfully!');
-        setTimeout(() => {
-          setSuccessMessage(null);
-        }, 10000);
-      } catch (error) {
-        setErrorMessage('an error occured while trying to create a user');
-        console.log(error);
-      }
-    } else {
+    if (username.length < 4 || password.length < 8) {
+      setErrorMessage('Username must be 4 characters long and Password must be 8 characters long');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return;
+    }
+
+    if (confirmPassword !== password) {
       setErrorMessage('Your password and confirmation password do not match.');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return;
+    }
+
+    try {
+      await signupService.signup({
+        email: email,
+        username: username,
+        password: password,
+      });
+
+      setEmail('');
+      setUsername('');
+      setPassword('');
+      setConfirmPassword('');
+
+      setSuccessMessage('Account created succesfully!');
+      setTimeout(() => {
+        setSuccessMessage(null);
+      }, 10000);
+    } catch (error) {
+      setErrorMessage('Error occured while trying to create a user');
+      console.log(error);
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
