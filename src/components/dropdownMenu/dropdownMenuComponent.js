@@ -8,17 +8,18 @@ const Dropdownmenu = ({
   resources,
   chosenResource,
 }) => {
-  const renderResourcesAnchors = () => {
+  const renderResourcesButtons = () => {
     return dropdownMenuIsOpen && resources
       ? resources.map((resource) => (
-          <a
+          <button
+            className='resource-button'
             key={resource.id}
             onClick={() => {
               handleResourceChange(resource);
             }}
           >
             {resource.name.en}
-          </a>
+          </button>
         ))
       : null;
   };
@@ -29,9 +30,9 @@ const Dropdownmenu = ({
         <button className='dropdown-menu-button square-button' onClick={handleDropdownMenuToggle}>
           <i className='fa fa-caret-down'></i>
         </button>
-        <p className='dropdown-input'>{chosenResource.name}</p>
+        <p className='resource-name'>{chosenResource.name}</p>
       </div>
-      <div className='dropdown-content'>{renderResourcesAnchors()}</div>
+      <div className='dropdown-content'>{renderResourcesButtons()}</div>
     </>
   );
 };

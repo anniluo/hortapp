@@ -100,7 +100,7 @@ const AddResourceModal = ({
         <input
           className='form-input'
           type='text'
-          placeholder='location'
+          placeholder='Address'
           value={locationName}
           onChange={({ target }) => setLocationName(target.value)}
         />

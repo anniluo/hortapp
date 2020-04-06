@@ -2,7 +2,15 @@ import React from 'react';
 import { Popup } from 'react-leaflet';
 import './natureResourcePopup.css';
 
+// TODO:
+// 1. reformat date
+// 2. make it nicer
+
 const NatureResourcePopup = ({ resourceMarker }) => {
+  const reformatDate = (date) => {
+    return date.slice(0, 10);
+  };
+
   return (
     <Popup className='popup-container'>
       <div className='popup-header-container'>
@@ -12,18 +20,21 @@ const NatureResourcePopup = ({ resourceMarker }) => {
           alt='Icon for resource'
         />
         <h5 id='nature-resource-name'>{resourceMarker.natureResource.name.en} </h5>
-        {/*harvest season */}
+        <p id='harvest-info'>
+          From: <b>{resourceMarker.natureResource.harvestSeason.start}</b>
+          <br></br>
+          To: <b>{resourceMarker.natureResource.harvestSeason.end}</b>
+        </p>
         <p id='date-user-info-text'>
-          Added by <b>{resourceMarker.addedByUser.username}</b> on <b>{resourceMarker.date}</b>
+          Added by <b>{resourceMarker.addedByUser.username}</b> on:{' '}
+          <b>{reformatDate(resourceMarker.date)}</b>
         </p>
       </div>
       <div className='popup-info-container'>
-        <p id='address-text'>
+        <h5 id='address-text'>
           <b>{resourceMarker.locationName}</b>
-          <br></br>
-          {resourceMarker.latLng.latitude}, {resourceMarker.latLng.longitude}
-        </p>
-        <p id='user-comment-text'>{resourceMarker.comment}</p>
+        </h5>
+        {resourceMarker.comment && <p id='user-comment-text'>{resourceMarker.comment}</p>}
       </div>
     </Popup>
   );
