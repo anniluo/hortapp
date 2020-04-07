@@ -9,6 +9,7 @@
   z-index: 999;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: #ffffff;
+  letter-spacing: 0.1em;
 }
 
 .menu-button {
@@ -25,8 +26,8 @@
 }
 
 .menu-button:hover {
-  background-color: #334896;
-  border-color: #334896;
+  background-color: #ff9068;
+  border-color: #ff9068;
 }
 
 .menu-open-icon {
@@ -70,6 +71,12 @@
   display: grid;
 }
 
+.menu-header-text {
+  background: -webkit-linear-gradient(left, #ff9068, #ff4b1f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .menu-header-container p {
   position: relative;
   top: 24%;
@@ -78,15 +85,17 @@
 
 .menu-contents button {
   margin-top: 2em;
+  color: #404040;
+  letter-spacing: 0.1em;
 }
 
 .menu-contents button:hover {
   background-color: #334896;
   font-weight: bold;
+  color: #fefefe;
 }
 
 .filter-container {
-  background-color: #334896;
   position: relative;
   text-align: left;
   top: 8%;
@@ -99,7 +108,6 @@
   margin-left: 1.3em;
   position: relative;
   top: -8%;
-  color: #ffffff;
 }
 
 .filter-options-container {
@@ -110,7 +118,6 @@
 }
 
 .filter-options-container label {
-  color: #ffffff;
   font-weight: normal;
   font-size: 0.98rem;
 }
