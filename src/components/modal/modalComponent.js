@@ -36,6 +36,16 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       return;
     }
 
+    /* if (username.length < 4 || password.length < 8) {
+      setErrorMessage(
+        'username must be at least 4 characters long and password must be at least 8 characters long'
+      );
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return;
+    } */
+
     try {
       const user = await loginService.login({ username, password });
       userService.setToLocalStorage('loggedHortappUser', user);
@@ -56,7 +66,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
     event.preventDefault();
 
     if (email === '' || username === '' || password === '') {
-      setErrorMessage('Email, Username and Password are required');
+      setErrorMessage('Email, username and password are required');
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -64,7 +74,9 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
     }
 
     if (username.length < 4 || password.length < 8) {
-      setErrorMessage('Username must be 4 characters long and Password must be 8 characters long');
+      setErrorMessage(
+        'Username must be at least 4 characters long and password must be at least 8 characters long'
+      );
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -90,7 +102,6 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       setUsername('');
       setPassword('');
       setConfirmPassword('');
-
       setSuccessMessage('Account created succesfully!');
       setTimeout(() => {
         setSuccessMessage(null);
