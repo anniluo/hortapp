@@ -1,16 +1,16 @@
 import axios from 'axios';
 const baseUrl = '/api/users';
 
-const setToLocalStorage = (key, user) => {
-  window.localStorage.setItem(key, JSON.stringify(user));
+const setToStorage = (key, user) => {
+  window.sessionStorage.setItem(key, JSON.stringify(user));
 };
 
-const getFromLocalStorage = (key) => {
-  return window.localStorage.getItem(key);
+const getFromStorage = (key) => {
+  return window.sessionStorage.getItem(key);
 };
 
-const clearLocalStorage = (key) => {
-  window.localStorage.removeItem(key);
+const clearStorage = (key) => {
+  window.sessionStorage.removeItem(key);
 };
 
 const getOneWith = (id) => {
@@ -23,4 +23,4 @@ const update = (id, newUserObject) => {
   return request.then((response) => response.data);
 };
 
-export default { getOneWith, update, setToLocalStorage, clearLocalStorage, getFromLocalStorage };
+export default { getOneWith, update, setToStorage, clearStorage, getFromStorage };

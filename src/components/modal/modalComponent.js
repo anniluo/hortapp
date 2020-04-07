@@ -36,19 +36,9 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       return;
     }
 
-    if (username.length < 4 || password.length < 8) {
-      setErrorMessage(
-        'username must be at least 4 characters long and password must be at least 8 characters long'
-      );
-      setTimeout(() => {
-        setErrorMessage(null);
-      }, 5000);
-      return;
-    }
-
     try {
       const user = await loginService.login({ username, password });
-      userService.setToLocalStorage('loggedHortappUser', user);
+      userService.setToStorage('loggedHortappUser', user);
       resourceMarkerService.setToken(user.token);
       setUsername('');
       setPassword('');

@@ -15,7 +15,7 @@ const HortappMenu = ({
 }) => {
   const handleLogout = (event) => {
     event.preventDefault();
-    userService.clearLocalStorage('loggedHortappUser');
+    userService.clearStorage('loggedHortappUser');
     handleUserChange(null);
   };
 

@@ -2,10 +2,6 @@ import React from 'react';
 import { Popup } from 'react-leaflet';
 import './natureResourcePopup.css';
 
-// TODO:
-// 1. reformat date
-// 2. make it nicer
-
 const NatureResourcePopup = ({ resourceMarker }) => {
   const reformatDate = (date) => {
     return date.slice(0, 10);
@@ -25,15 +21,15 @@ const NatureResourcePopup = ({ resourceMarker }) => {
           <br></br>
           To: <b>{resourceMarker.natureResource.harvestSeason.end}</b>
         </p>
-        <p id='date-user-info-text'>
-          Added by <b>{resourceMarker.addedByUser.username}</b> on:{' '}
-          <b>{reformatDate(resourceMarker.date)}</b>
-        </p>
       </div>
       <div className='popup-info-container'>
         <h5 id='address-text'>
           <b>{resourceMarker.locationName}</b>
         </h5>
+        <p id='date-user-info-text'>
+          Added by <b>{resourceMarker.addedByUser.username}</b> on:{' '}
+          <b>{reformatDate(resourceMarker.date)}</b>
+        </p>
         {resourceMarker.comment && <p id='user-comment-text'>{resourceMarker.comment}</p>}
       </div>
     </Popup>

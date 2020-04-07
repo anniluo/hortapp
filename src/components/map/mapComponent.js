@@ -18,10 +18,6 @@ const LeafletMap = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [addMarkerModeIsOn, setAddMarkerModeIsOn] = useState(false);
   const [resourceMarkers, setResourceMarkers] = useState([]);
-  const mapMaxBounds = useState([
-    [70.117959, 28.005301],
-    [59.944007, 19.387601],
-  ]);
 
   const [mapZoom, setMapZoom] = useState('13');
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
@@ -37,7 +33,7 @@ const LeafletMap = () => {
   }, []);
 
   useEffect(() => {
-    const loggedInUser = userService.getFromLocalStorage('loggedHortappUser');
+    const loggedInUser = userService.getFromStorage('loggedHortappUser');
     if (loggedInUser) {
       const user = JSON.parse(loggedInUser);
       handleUserChange(user);
@@ -264,7 +260,6 @@ const LeafletMap = () => {
         zoomControl={false}
         onClick={getLatLngOnClick}
         ref={mapRef}
-        maxBounds={mapMaxBounds}
       >
         <ZoomControl position='topright'></ZoomControl>
         <TileLayer
