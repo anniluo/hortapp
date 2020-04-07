@@ -57,15 +57,15 @@ const AddResourceModal = ({
       return;
     }
 
-    if (locationName <= 10) {
-      setErrorMessage('Address must be at least 5 characters long');
+    if (locationName.length < 6) {
+      setErrorMessage('Address must be at least 6 characters long');
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
       return;
     }
 
-    if (comment <= 10 && comment > 0) {
+    if (comment.length <= 10 && comment.length > 0) {
       setErrorMessage('Comment must be at least 10 characters long');
       setTimeout(() => {
         setErrorMessage(null);
@@ -117,7 +117,7 @@ const AddResourceModal = ({
         <input
           className='form-input'
           type='text'
-          placeholder='location'
+          placeholder='address'
           value={locationName}
           onChange={({ target }) => setLocationName(target.value)}
         />

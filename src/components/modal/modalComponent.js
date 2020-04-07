@@ -36,7 +36,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       return;
     }
 
-    if (username < 4 || password < 8) {
+    /* if (username.length < 4 || password.length < 8) {
       setErrorMessage(
         'username must be at least 4 characters long and password must be at least 8 characters long'
       );
@@ -44,7 +44,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
         setErrorMessage(null);
       }, 5000);
       return;
-    }
+    } */
 
     try {
       const user = await loginService.login({ username, password });
@@ -65,8 +65,18 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
   const handleSignup = async (event) => {
     event.preventDefault();
 
-    if ((email === '') | (username === '') || password === '') {
+    if (email === '' || username === '' || password === '') {
       setErrorMessage('Email, username and password are required');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return;
+    }
+
+    if (username.length < 4 || password.length < 8) {
+      setErrorMessage(
+        'username must be at least 4 characters long and password must be at least 8 characters long'
+      );
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
