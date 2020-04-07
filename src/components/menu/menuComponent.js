@@ -72,9 +72,9 @@ const HortappMenu = ({
   return menuIsOpen ? (
     <div className='menu-container'>
       <div className='menu-header-container'>
-        <h5 className='menu-header-text' onClick={onMenuButtonClick}>
-          Menu
-        </h5>
+        <h4 className='menu-header-text' onClick={onMenuButtonClick}>
+          Hortapp
+        </h4>
         <button onClick={onMenuButtonClick} className='menu-button menu-open-icon'></button>
         {user && (
           <p>
@@ -82,7 +82,9 @@ const HortappMenu = ({
           </p>
         )}
       </div>
+
       <div className='menu-contents'>
+        {renderMapFilter()}
         {user === null ? (
           <>
             <ModalToggle
@@ -121,7 +123,7 @@ const HortappMenu = ({
             Log out
           </button>
         )}
-        {renderMapFilter()}
+
         <ModalToggle
           toggle={(showModal) => (
             <button className='full-button square-button no-border' onClick={showModal}>
