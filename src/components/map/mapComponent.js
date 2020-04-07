@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Map, TileLayer, ZoomControl, Popup, Marker, AttributionControl } from 'react-leaflet';
+import { Map, TileLayer, ZoomControl, Popup, Marker } from 'react-leaflet';
 import NatureResourceMarker from '../natureResourceMarker/natureResourceMarker';
 import LeafletControlButton from '../button/buttonComponent';
 import HortappMenu from '../menu/menuComponent';
