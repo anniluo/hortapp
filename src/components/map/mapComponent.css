@@ -8,9 +8,18 @@
   opacity: 0.9;
 }
 
-#choose-location-header-text {
-  color: #252525;
-  margin: 0.7em;
+#add-mode-container {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  background-color: #0246a2;
+  opacity: 0.8;
+}
+
+#add-mode-container p {
+  font-size: 1.2em;
+  margin: 0.8em;
+  color: #fefefe;
 }
 
 #modal-background {
