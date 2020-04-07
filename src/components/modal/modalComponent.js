@@ -5,6 +5,7 @@ import signupService from '../../services/signup';
 import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
 import './modalComponent.css';
+import { handleError } from '../../utils/errorHandler';
 
 const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -27,9 +28,11 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    let error = '';
 
     if (username === '' || password === '') {
-      setErrorMessage('Username and Password are required');
+      error = { message: 'Missing Username or Password' };
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -40,11 +43,14 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       const user = await loginService.login({ username, password });
       userService.setToStorage('loggedHortappUser', user);
       resourceMarkerService.setToken(user.token);
+
       setUsername('');
       setPassword('');
+
       hideModalOnClick();
       handleUserChange(user);
     } catch (error) {
+      //setErrorMessage(handleError(error));
       setErrorMessage('Incorrect username or password');
       setTimeout(() => {
         setErrorMessage(null);
@@ -54,9 +60,11 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
 
   const handleSignup = async (event) => {
     event.preventDefault();
+    let error = '';
 
     if (email === '' || username === '' || password === '') {
-      setErrorMessage('Email, username and password are required');
+      error = { message: 'Missing Username, Password or Email' };
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -64,9 +72,8 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
     }
 
     if (username.length < 4 || password.length < 8) {
-      setErrorMessage(
-        'Username must be at least 4 characters long and password must be at least 8 characters long'
-      );
+      error = { message: 'Short Username or Password' };
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -74,7 +81,8 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
     }
 
     if (confirmPassword !== password) {
-      setErrorMessage('Your password and confirmation password do not match.');
+      error = { message: 'Incorrect Match' };
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -92,13 +100,13 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       setUsername('');
       setPassword('');
       setConfirmPassword('');
+
       setSuccessMessage('Account created succesfully!');
       setTimeout(() => {
         setSuccessMessage(null);
       }, 10000);
     } catch (error) {
-      setErrorMessage('Error occured while trying to create a user');
-      console.log(error);
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -169,7 +177,9 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
             </form>
           </>
         ) : (
-          <div className='about-app-container'>Here I'll write a small description of the app</div>
+          <div className='about-app-container'>
+            Hortapp is a map application to mark locations of different types of nature resources.
+          </div>
         )}
       </div>
     </>,

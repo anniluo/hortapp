@@ -8,6 +8,7 @@ import ModalToggle from '../modal/modalToggleComponent';
 import AddMarkerModal from '../addMarkerModal/addMarkerModalComponent';
 import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
+import { handleError } from '../../utils/errorHandler';
 
 const LeafletMap = () => {
   const mapRef = useRef();
@@ -66,7 +67,7 @@ const LeafletMap = () => {
       const markers = await resourceMarkerService.getAll();
       setResourceMarkers(markers);
     } catch (error) {
-      console.log('Error occured while trying to fetch markers');
+      alert(handleError(error.message));
       return;
     }
   };
@@ -90,7 +91,7 @@ const LeafletMap = () => {
         setMapZoom(getCurrentZoomLevel());
       },
       (error) => {
-        console.log(error.message);
+        alert(handleError(error.message));
       }
     );
   };
@@ -134,7 +135,7 @@ const LeafletMap = () => {
     if (map !== null) {
       return map.leafletElement.getZoom();
     } else {
-      return null;
+      return mapZoom;
     }
   };
 

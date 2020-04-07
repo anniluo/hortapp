@@ -5,6 +5,7 @@ import '../modal/modalComponent.css';
 import Dropdownmenu from '../dropdownMenu/dropdownMenuComponent';
 import natureResourceService from '../../services/natureResources';
 import resourceMarkerService from '../../services/resourceMarkers';
+import { handleError } from '../../utils/errorHandler';
 
 const AddResourceModal = ({
   hideModalOnClick,
@@ -29,6 +30,7 @@ const AddResourceModal = ({
       const resources = await natureResourceService.getAll();
       setNatureResources(resources);
     } catch (error) {
+      handleError(error);
       setErrorMessage('Error occured while trying to fetch resources');
       setTimeout(() => {
         setErrorMessage(null);
@@ -48,9 +50,11 @@ const AddResourceModal = ({
 
   const handleAddMarker = async (event) => {
     event.preventDefault();
+    let error = '';
 
     if (locationName === '' || chosenResource.id === '') {
-      setErrorMessage('Address and resource are required');
+      error = { message: 'Missing Address or Resource' };
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -58,7 +62,8 @@ const AddResourceModal = ({
     }
 
     if (locationName.length < 6) {
-      setErrorMessage('Address must be at least 6 characters long');
+      error = { message: 'Short Address' };
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -66,7 +71,8 @@ const AddResourceModal = ({
     }
 
     if (comment.length <= 10 && comment.length > 0) {
-      setErrorMessage('Comment must be at least 10 characters long');
+      error = { message: 'Short Comment' };
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -86,12 +92,12 @@ const AddResourceModal = ({
       setLocationName('');
       handleResourceChange(natureResources[0]);
       setComment('');
+
       updateMarkers();
       hideModalOnClick();
       handleAddMarkerModeChange();
     } catch (error) {
-      setErrorMessage('an error occured when trying to create a new marker', error);
-      console.log(error);
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
