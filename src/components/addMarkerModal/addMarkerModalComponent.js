@@ -49,32 +49,49 @@ const AddResourceModal = ({
   const handleAddMarker = async (event) => {
     event.preventDefault();
 
-    if (locationName !== '' || chosenResource.id !== '') {
-      try {
-        await resourceMarkerService.create({
-          latLng: { latitude: chosenLocation.lat, longitude: chosenLocation.long },
-          locationName: locationName,
-          date: Date.now(),
-          userId: user.id,
-          comment: comment,
-          natureResource: chosenResource.id,
-        });
+    if (locationName === '' || chosenResource.id === '') {
+      setErrorMessage('Missing address and/or resource');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return;
+    }
 
-        setLocationName('');
-        handleResourceChange(natureResources[0]);
-        setComment('');
-        updateMarkers();
-        hideModalOnClick();
-        handleAddMarkerModeChange();
-      } catch (error) {
-        setErrorMessage('an error occured when trying to create a new marker', error);
-        console.log(error);
-        setTimeout(() => {
-          setErrorMessage(null);
-        }, 5000);
-      }
-    } else {
-      setErrorMessage('Invalid address and/or resource');
+    if (locationName <= 10) {
+      setErrorMessage('Address must be at least 5 characters long');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return;
+    }
+
+    if (comment <= 10 && comment > 0) {
+      setErrorMessage('Comment must be at least 10 characters long');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+      return;
+    }
+
+    try {
+      await resourceMarkerService.create({
+        latLng: { latitude: chosenLocation.lat, longitude: chosenLocation.long },
+        locationName: locationName,
+        date: Date.now(),
+        userId: user.id,
+        comment: comment,
+        natureResource: chosenResource.id,
+      });
+
+      setLocationName('');
+      handleResourceChange(natureResources[0]);
+      setComment('');
+      updateMarkers();
+      hideModalOnClick();
+      handleAddMarkerModeChange();
+    } catch (error) {
+      setErrorMessage('an error occured when trying to create a new marker', error);
+      console.log(error);
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -116,7 +133,7 @@ const AddResourceModal = ({
         </label>
         <textarea
           id='resource-comment'
-          placeholder='write a comment...'
+          placeholder='write a comment (optional)'
           value={comment}
           onChange={({ target }) => setComment(target.value)}
         ></textarea>
