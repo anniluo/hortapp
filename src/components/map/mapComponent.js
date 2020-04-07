@@ -22,14 +22,15 @@ const LeafletMap = () => {
     [70.117959, 28.005301],
     [59.944007, 19.387601],
   ]);
+
+  const [mapZoom, setMapZoom] = useState('13');
+  const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
+  const [chosenLocation, setChosenLocation] = useState({ lat: null, long: null });
   const [selectedFilterOptions, setSelectedFilterOptions] = useState([
     'berries',
     'mushrooms',
     'greens',
   ]);
-
-  const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
-  const [chosenLocation, setChosenLocation] = useState({ lat: null, long: null });
 
   useEffect(() => {
     getResourceMarkers();
@@ -90,7 +91,7 @@ const LeafletMap = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setMapPosition([position.coords.latitude, position.coords.longitude]);
-        // get current zoom level
+        setMapZoom(getCurrentZoomLevel());
       },
       (error) => {
         console.log(error.message);
@@ -129,6 +130,15 @@ const LeafletMap = () => {
     if (addMarkerModeIsOn) {
       setChosenLocation({ lat: event.latlng.lat, long: event.latlng.lng });
       confirmationPopupToggle();
+    }
+  };
+
+  const getCurrentZoomLevel = () => {
+    const map = mapRef.current;
+    if (map !== null) {
+      return map.leafletElement.getZoom();
+    } else {
+      return null;
     }
   };
 
@@ -248,7 +258,9 @@ const LeafletMap = () => {
       <Map
         id='hortapp-map'
         center={mapPosition}
-        zoom={13}
+        zoom={mapZoom}
+        minZoom={6}
+        maxZoom={17}
         zoomControl={false}
         onClick={getLatLngOnClick}
         ref={mapRef}
