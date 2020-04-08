@@ -50,8 +50,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       hideModalOnClick();
       handleUserChange(user);
     } catch (error) {
-      //setErrorMessage(handleError(error));
-      setErrorMessage('Incorrect username or password');
+      setErrorMessage(handleError(error));
       setTimeout(() => {
         setErrorMessage(null);
       }, 5000);
@@ -102,9 +101,6 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
       setConfirmPassword('');
 
       setSuccessMessage('Account created succesfully!');
-      setTimeout(() => {
-        setSuccessMessage(null);
-      }, 10000);
     } catch (error) {
       setErrorMessage(handleError(error));
       setTimeout(() => {

@@ -1,5 +1,4 @@
 const handleError = (error) => {
-  console.log('incoming error:', error);
   let errors = [];
   switch (error.message) {
     case 'Network Error':
@@ -10,6 +9,9 @@ const handleError = (error) => {
       break;
     case 'Missing Address or Resource':
       errors.push('Address and Resource are required');
+      break;
+    case 'Request failed with status code 401':
+      errors.push('Incorrect Username or Password');
       break;
     case 'Missing Username or Password':
       errors.push('Username and Password are required');
@@ -34,7 +36,6 @@ const handleError = (error) => {
     default:
       errors.push(`Error occured: ${error.message}`);
   }
-  console.log(errors);
   return errors;
 };
 
