@@ -3,10 +3,10 @@ const handleError = (error) => {
   let errors = [];
   switch (error.message) {
     case 'Network Error':
-      errors.push('Network Error');
+      errors.push('Could not fetch markers due to Network Error');
       break;
     case 'User denied geolocation prompt':
-      errors.push('User denied geolocation prompt');
+      errors.push('Request to get the device location was denied');
       break;
     case 'Missing Address or Resource':
       errors.push('Address and Resource are required');
@@ -38,4 +38,4 @@ const handleError = (error) => {
   return errors;
 };
 
-export default { handleError };
+module.exports = { handleError };

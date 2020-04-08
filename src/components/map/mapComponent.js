@@ -20,6 +20,10 @@ const LeafletMap = () => {
   const [addMarkerModeIsOn, setAddMarkerModeIsOn] = useState(false);
   const [resourceMarkers, setResourceMarkers] = useState([]);
 
+  const [mapMaxBounds] = useState([
+    [59.44507, 19.08325],
+    [70.0988, 31.62826],
+  ]);
   const [mapZoom, setMapZoom] = useState('13');
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
   const [chosenLocation, setChosenLocation] = useState({ lat: null, long: null });
@@ -67,7 +71,7 @@ const LeafletMap = () => {
       const markers = await resourceMarkerService.getAll();
       setResourceMarkers(markers);
     } catch (error) {
-      alert(handleError(error.message));
+      alert(handleError(error));
       return;
     }
   };
@@ -91,7 +95,7 @@ const LeafletMap = () => {
         setMapZoom(getCurrentZoomLevel());
       },
       (error) => {
-        alert(handleError(error.message));
+        alert(handleError(error));
       }
     );
   };
@@ -253,11 +257,12 @@ const LeafletMap = () => {
       )}
       <div id='modal-background' className='hidden-modal-background'></div>
       <Map
+        maxBounds={mapMaxBounds}
         id='hortapp-map'
         center={mapPosition}
         zoom={mapZoom}
         minZoom={6}
-        maxZoom={17}
+        maxZoom={15}
         zoomControl={false}
         onClick={getLatLngOnClick}
         ref={mapRef}
