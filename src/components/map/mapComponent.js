@@ -255,6 +255,7 @@ const LeafletMap = () => {
           <p>Choose a Location</p>
         </div>
       )}
+      <div id='modal-root'></div>
       <div id='modal-background' className='hidden-modal-background'></div>
       <Map
         maxBounds={mapMaxBounds}
