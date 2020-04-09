@@ -14,7 +14,11 @@ const NatureResourcePopup = ({ resourceMarker }) => {
       <div className='popup-header-container'>
         <img
           className='resource-icon'
-          src={resourceMarker.natureResource.category === 'Berries' ? berriesIcon : greensIcon}
+          src={
+            resourceMarker.natureResource.category.toLowerCase() === 'berries'
+              ? berriesIcon
+              : greensIcon
+          }
           alt='Icon for resource'
         />
         <h5 id='nature-resource-name'>{resourceMarker.natureResource.name.en} </h5>

@@ -77,7 +77,7 @@ const HortappMenu = ({
         </h4>
         <button onClick={onMenuButtonClick} className='menu-button menu-open-icon'></button>
         {user && (
-          <p>
+          <p className='logged-user-text'>
             Logged in as <b>{user.username}</b>
           </p>
         )}

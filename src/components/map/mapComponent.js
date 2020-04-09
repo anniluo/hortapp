@@ -95,7 +95,8 @@ const LeafletMap = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setMapPosition([position.coords.latitude, position.coords.longitude]);
-        setMapZoom(getCurrentZoomLevel());
+        const currentZoom = getCurrentZoomLevel();
+        currentZoom < 13 ? setMapZoom(13) : setMapZoom(currentZoom);
       },
       (error) => {
         alert(handleError(error));
@@ -266,7 +267,7 @@ const LeafletMap = () => {
         center={mapPosition}
         zoom={mapZoom}
         minZoom={6}
-        maxZoom={13}
+        maxZoom={15}
         zoomControl={false}
         onClick={getLatLngOnClick}
         ref={mapRef}
