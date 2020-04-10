@@ -10,6 +10,9 @@ import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
 import { handleError } from '../../utils/errorHandler';
 
+// TODO
+// mobile view fixes (modals, leaflet controls, menu)
+
 const LeafletMap = () => {
   const mapRef = useRef();
   const markerRef = useRef();
@@ -24,7 +27,7 @@ const LeafletMap = () => {
     [59.44507, 19.08325],
     [70.0988, 31.62826],
   ]);
-  const [mapZoom, setMapZoom] = useState('13');
+  const [mapZoom, setMapZoom] = useState('6');
   const [mapPosition, setMapPosition] = useState([60.192059, 24.945831]);
   const [chosenLocation, setChosenLocation] = useState({ lat: null, long: null });
   const [selectedFilterOptions, setSelectedFilterOptions] = useState([
@@ -92,7 +95,8 @@ const LeafletMap = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setMapPosition([position.coords.latitude, position.coords.longitude]);
-        setMapZoom(getCurrentZoomLevel());
+        const currentZoom = getCurrentZoomLevel();
+        currentZoom < 13 ? setMapZoom(13) : setMapZoom(currentZoom);
       },
       (error) => {
         alert(handleError(error));
@@ -255,10 +259,11 @@ const LeafletMap = () => {
           <p>Choose a Location</p>
         </div>
       )}
+      <div id='modal-root'></div>
       <div id='modal-background' className='hidden-modal-background'></div>
       <Map
+        id='leaflet-map'
         maxBounds={mapMaxBounds}
-        id='hortapp-map'
         center={mapPosition}
         zoom={mapZoom}
         minZoom={6}

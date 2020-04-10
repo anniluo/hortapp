@@ -1,10 +1,9 @@
 .menu-container {
   position: relative;
   width: 14em;
-  height: 56em;
+  height: 90%;
   left: 0px;
   top: 1.46%;
-  bottom: 87.68%;
   border-radius: 0px 0px 15px 0px;
   z-index: 999;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -58,22 +57,15 @@
   background-position: center;
 }
 
+.menu-header-container,
 .menu-contents {
-  display: grid;
-  left: 0%;
-  right: 31.25%;
-  top: 0.46%;
-  bottom: 1.41%;
-  border-radius: 0px 0px 15px 0px;
-}
-
-.menu-header-container {
   display: grid;
 }
 
 .menu-header-text {
   background: -webkit-linear-gradient(left, #ff9068, #ff4b1f);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -85,7 +77,7 @@
 }
 
 .menu-contents button {
-  margin-top: 2em;
+  margin-bottom: 1em;
   color: #404040;
   letter-spacing: 0.1em;
 }
@@ -103,10 +95,10 @@
 }
 
 .filter-container p {
-  font-size: 1rem;
+  font-size: 1.3em;
   font-weight: bold;
   margin-top: 2em;
-  margin-left: 1.3em;
+  margin-left: 1em;
   position: relative;
   top: -8%;
 }
@@ -120,5 +112,29 @@
 
 .filter-options-container label {
   font-weight: normal;
-  font-size: 0.98rem;
+  font-size: 1.2em;
+}
+
+/*media queries*/
+@media only screen and (max-height: 500px) {
+  .menu-contents button {
+    margin: 0.4em 0 0 0;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
+  }
+
+  .filter-container p {
+    margin-top: 1em;
+  }
+
+  .logged-user-text {
+    margin: -1em;
+  }
+}
+
+/* checkbox fix in Chrome29+ */
+@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: 0.001dpcm) {
+  .filter-container input {
+    margin: 1.4em;
+  }
 }

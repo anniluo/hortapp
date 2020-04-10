@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3001/api/resourceMarkers';
+const baseUrl = '/api/resourceMarkers';
 
 let token = null;
 

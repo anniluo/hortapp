@@ -1,13 +1,3 @@
-.header-container {
-  position: fixed;
-  width: 100%;
-  z-index: 999;
-  margin: 0 auto;
-  text-align: center;
-  background-color: #738ada;
-  opacity: 0.9;
-}
-
 #add-mode-container {
   position: fixed;
   width: 100%;
@@ -28,7 +18,7 @@
   height: 100%;
   z-index: 1001;
   background-color: #0246a2;
-  opacity: 60%;
+  opacity: 0.6;
 }
 
 .hidden-modal-background {

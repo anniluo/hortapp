@@ -1,3 +1,15 @@
+## Hortapp
+
+Frontend for [Hortapp](https://hortapp.herokuapp.com/)
+
+## Built With
+
+- [leaflet](https://leafletjs.com/) - Open-source JavaScript library for mobile-friendly interactive maps.
+- [react-leaflet](https://react-leaflet.js.org/) - Provides an abstraction of Leaflet as React components.
+- [react-leaflet-control](https://www.npmjs.com/package/react-leaflet-control) - A React-Leaflet component that renders React elements in leaflet's control pane.
+- [axios](https://www.npmjs.com/package/axios) - Promise based HTTP client for the browser and node.js
+- [Primitive UI](https://taniarascia.github.io/primitive/css/main.css) - A minimalist front-end design toolkit built with Sass for developing responsive, browser-consistent web apps.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -66,3 +78,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Acknowledgments
+
+- [Full Stack open 2019](https://fullstackopen-2019.github.io/)

@@ -1,3 +1,29 @@
+body {
+  padding: 0;
+  width: 100vw;
+  height: 100%;
+}
+
+#root {
+  position: inherit;
+  width: inherit;
+  height: inherit;
+}
+
+.App {
+  position: inherit;
+  width: inherit;
+  height: inherit;
+}
+
+#leaflet-map {
+  width: inherit;
+  height: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 /*! 
  * Primitive UI | MIT License
  *
