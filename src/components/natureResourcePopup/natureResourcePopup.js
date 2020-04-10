@@ -1,12 +1,26 @@
 import React from 'react';
 import { Popup } from 'react-leaflet';
 import './natureResourcePopup.css';
-import berriesIcon from '../../assets/resource-icons/berries-icon.png';
-import greensIcon from '../../assets/resource-icons/greens-icon.png';
+import berriesIcon from '../../assets/resource-icons/fruit.png';
+import greensIcon from '../../assets/resource-icons/salad.png';
+import mushroomsIcon from '../../assets/resource-icons/mushroom.png';
 
 const NatureResourcePopup = ({ resourceMarker }) => {
   const reformatDate = (date) => {
     return date.slice(0, 10);
+  };
+
+  const chooseIcon = (category) => {
+    switch (category) {
+      case 'berries':
+        return berriesIcon;
+      case 'mushrooms':
+        return mushroomsIcon;
+      case 'greens':
+        return greensIcon;
+      default:
+        return greensIcon;
+    }
   };
 
   return (
@@ -14,11 +28,7 @@ const NatureResourcePopup = ({ resourceMarker }) => {
       <div className='popup-header-container'>
         <img
           className='resource-icon'
-          src={
-            resourceMarker.natureResource.category.toLowerCase() === 'berries'
-              ? berriesIcon
-              : greensIcon
-          }
+          src={chooseIcon(resourceMarker.natureResource.category.toLowerCase())}
           alt='Icon for resource'
         />
         <h5 id='nature-resource-name'>{resourceMarker.natureResource.name.en} </h5>
