@@ -24,3 +24,7 @@
 .hidden-modal-background {
   display: none;
 }
+
+#confirm-modal-header-text {
+  margin: 0;
+}
