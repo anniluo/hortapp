@@ -174,7 +174,10 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
           </>
         ) : (
           <div className='about-app-container'>
-            Hortapp is a map application to mark locations of different types of nature resources.
+            Hortapp is a website for you to browse and mark places where you can find and freely
+            collect different kinds of natural resources, for example blueberries, nettles and
+            lingonberries. For you to be able to create new markers, you need to create an account
+            first.
           </div>
         )}
       </div>
@@ -184,3 +187,7 @@ const Modal = ({ modalHeaderText, hideModalOnClick, formId, handleUserChange }) 
 };
 
 export default Modal;
+
+/*
+  
+*/

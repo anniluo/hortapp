@@ -10,9 +10,6 @@ import resourceMarkerService from '../../services/resourceMarkers';
 import userService from '../../services/users';
 import { handleError } from '../../utils/errorHandler';
 
-// TODO
-// mobile view fixes (modals, leaflet controls, menu)
-
 const LeafletMap = () => {
   const mapRef = useRef();
   const markerRef = useRef();

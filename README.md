@@ -82,3 +82,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ## Acknowledgments
 
 - [Full Stack open 2019](https://fullstackopen-2019.github.io/)
+- Icons for natureResources made by [Freepik](https://www.flaticon.com/authors/freepik)] from www.flaticon.com
