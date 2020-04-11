@@ -2,6 +2,8 @@
 
 Frontend for [Hortapp](https://hortapp.herokuapp.com/)
 
+Hortapp is a website for browsing and marking locations where you can find and freely collect different kinds of natural resources.
+
 ## Built With
 
 - [leaflet](https://leafletjs.com/) - Open-source JavaScript library for mobile-friendly interactive maps.
